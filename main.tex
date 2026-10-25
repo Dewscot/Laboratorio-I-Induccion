@@ -1,0 +1,253 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[provide=*,spanish]{babel}
+\usepackage{lmodern,geometry,amsmath,amssymb,graphicx,xcolor,microtype,multicol}
+\usepackage{caption,fancyhdr,enumitem,booktabs,tabularx,array}
+\usepackage[american]{circuitikz}
+\usepackage{siunitx,hyperref}
+\usetikzlibrary{arrows.meta,calc}
+\geometry{top=1.8cm,bottom=2.0cm,left=1.75cm,right=1.75cm,headheight=14pt}
+\setlength{\columnsep}{0.65cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.42em}
+\setlist{nosep,leftmargin=*}
+\sisetup{output-decimal-marker={,},group-separator={\,},per-mode=symbol}
+\captionsetup{font=small,labelfont=bf,justification=centering,skip=4pt,hypcap=false}
+\definecolor{udecazul}{HTML}{003A70}
+\definecolor{udecoro}{HTML}{C79A2B}
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
+
+% Plantilla de trabajo: los datos del equipo y el montaje final estan pendientes.
+\newcommand{\asignatura}{Laboratorio I}
+\newcommand{\laboratorio}{Propuesta de experimento}
+\newcommand{\tituloinforme}{Inducción electromagnética de una espira móvil sobre un plano inclinado}
+\newcommand{\autores}{\textit{[Integrantes del grupo]}}
+\newcommand{\procedencia}{Departamento de Física, Universidad de Concepción, Chile}
+\newcommand{\docente}{\textit{[Por completar]}}
+\newcommand{\seccion}{\textit{[Sección por completar]}}
+\newcommand{\fechaentrega}{\textit{[Fecha por completar]}}
+\hypersetup{colorlinks=true,linkcolor=udecazul,citecolor=udecazul,urlcolor=udecazul,
+ pdftitle={Inducción electromagnética con un carrito sobre plano inclinado},
+ pdfauthor={Grupo de Laboratorio I}}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small \laboratorio: Inducción electromagnética}
+\rhead{\small \asignatura}
+\cfoot{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{\fancyhf{}\lhead{\small \laboratorio: Inducción electromagnética}\rhead{\small \asignatura}\cfoot{\small \thepage}\renewcommand{\headrulewidth}{0.4pt}}
+
+\begin{document}
+\thispagestyle{empty}
+\begin{center}
+  \begin{minipage}{0.46\textwidth}
+    \raggedright
+    \includegraphics[width=0.68\linewidth]{figuras/logo_udec.png}
+  \end{minipage}
+  \begin{minipage}{0.46\textwidth}
+    \raggedleft
+    \includegraphics[width=0.68\linewidth]{figuras/logo_fcfm.png}
+  \end{minipage}
+  {\color{udecoro}\rule{0.82\textwidth}{1.2pt}\par}
+  \vspace{0.10cm}
+  {\Large\bfseries \asignatura\par}
+  \vspace{0.12cm}
+  {\large\bfseries\color{udecazul} \laboratorio\par}
+  \vspace{0.10cm}
+  {\Large\bfseries\color{udecazul} \tituloinforme\par}
+  \vspace{0.09cm}
+  {\normalsize Documento de trabajo: fundamentos teóricos\par}
+  \vspace{0.11cm}
+  {\small \autores\par}
+  {\footnotesize\itshape \procedencia\par}
+  \vspace{0.05cm}
+  {\small Docente: \docente\par}
+  {\small \seccion \quad $\vert$ \quad \fechaentrega\par}
+\end{center}
+
+\begin{abstract}
+Se propone estudiar la inducción electromagnética en una espira conductora que se desplaza sobre un carrito a lo largo de un riel inclinado. La aceleración gravitacional permite relacionar la posición y la velocidad del carrito con el tiempo. Un par de bobinas de Helmholtz alimentadas con corriente continua genera el campo magnético externo, mientras que un osciloscopio registra el voltaje inducido sobre una resistencia del circuito móvil. Se presentan las ecuaciones de movimiento, flujo magnético, ley de Faraday--Lenz y medición resistiva, distinguiendo entre la descripción general del campo real y la aproximación de una región magnética uniforme con borde definido. La geometría y orientación definitiva de la espira quedan pendientes de determinar.
+\end{abstract}
+
+\begin{multicols}{2}
+\raggedcolumns
+
+\section{Introducción}
+
+La ley de Faraday--Lenz establece que una variación del flujo magnético enlazado con un circuito conductor induce una fuerza electromotriz (fem). El objetivo del montaje es provocar esa variación mediante el movimiento de una espira que desciende por un plano inclinado y atraviesa distintas regiones del campo generado por dos bobinas de Helmholtz. Se medirá la señal de voltaje utilizando un osciloscopio, instrumento adecuado para registrar su evolución temporal y sus cambios de polaridad.
+
+El mecanismo de inducción depende de la posición y orientación de la espira respecto del campo. Por ello, se distinguen dos descripciones: una general, que permite representar el campo espacialmente variable de las bobinas, y otra idealizada, en la que una espira rectangular ingresa en una región de campo prácticamente uniforme. Esta última sirve como referencia conceptual, pero no equivale a suponer que las bobinas de Helmholtz poseen un borde magnético abrupto.
+
+\section{Marco teórico}
+
+\subsection{Dinámica y cinemática del plano inclinado}
+
+Sea $\alpha$ el ángulo del riel respecto de la horizontal, $m$ la masa del carrito y $s$ una coordenada medida \emph{a lo largo del riel}, positiva en el sentido descendente. Si se desprecian las pérdidas mecánicas y la fuerza electromagnética inducida, la segunda ley de Newton conduce a
+\begin{equation}
+  m a_c = mg\sin\alpha,
+  \qquad a_c=g\sin\alpha.
+  \label{eq:ac}
+\end{equation}
+En condiciones reales, la fricción de las ruedas y las fuerzas magnéticas pueden reducir la aceleración. Por ello, $a_c$ debe interpretarse como una aceleración aproximadamente constante y, de ser posible, determinarse experimentalmente.
+
+Si el carrito parte de la posición $s_0$ con rapidez $v_0$, las ecuaciones cinemáticas son
+\begin{align}
+  s(t)&=s_0+v_0t+\tfrac12a_ct^2, \label{eq:pos}\\
+  v(t)&=v_0+a_ct, \label{eq:vel}\\
+  v^2(t)&=v_0^2+2a_c[s(t)-s_0]. \label{eq:velpos}
+\end{align}
+Para una liberación desde el reposo, tras recorrer una distancia $d$ antes de alcanzar una posición de interés,
+\begin{equation}
+  v(d)=\sqrt{2a_cd}.
+  \label{eq:vd}
+\end{equation}
+Esta relación permite cambiar la velocidad en la zona magnética variando la posición inicial del carrito, sin suponer que los empujes manuales son reproducibles.
+
+\subsection{Campo magnético de Helmholtz}
+
+Un par de bobinas de Helmholtz consta de dos bobinas circulares coaxiales de radio $R_H$, con $N_H$ vueltas cada una, separadas una distancia igual a $R_H$ y alimentadas por corrientes iguales $I_H$ en el mismo sentido. Aplicando la ley de Biot--Savart a esta geometría, el campo en el punto central es
+\begin{equation}
+  \boxed{B_H(0)=\left(\frac45\right)^{3/2}
+  \frac{\mu_0 N_H I_H}{R_H}.}
+  \label{eq:helmholtz}
+\end{equation}
+El campo es aproximadamente uniforme en una región alrededor del centro, no a lo largo de todo el riel. Fuera de ella, tanto su magnitud como su dirección pueden variar con la posición. La ecuación \eqref{eq:helmholtz} no debe utilizarse como valor constante para todo el recorrido.
+
+Si el movimiento coincidiera con el eje común $z$ de las bobinas, la componente axial sería
+\begin{equation}
+\begin{split}
+ B_H(z)=\frac{\mu_0 N_H I_H R_H^2}{2}\bigg[&
+ \frac{1}{\bigl(R_H^2+(z-R_H/2)^2\bigr)^{3/2}}\\
+ &+\frac{1}{\bigl(R_H^2+(z+R_H/2)^2\bigr)^{3/2}}
+ \bigg].
+\end{split}
+\label{eq:bhz}
+\end{equation}
+Esta última expresión es válida \emph{solo sobre el eje}. Si el riel lo cruza de otra manera, se necesita la distribución vectorial $\vec B(\vec r)$ correspondiente a esa trayectoria.
+
+\subsection{Flujo magnético de la espira móvil}
+
+La definición general del flujo a través de una vuelta es
+\begin{equation}
+  \boxed{\Phi_B(t)=\int_{S(t)}\vec B(\vec r)\cdot d\vec S,}
+  \qquad d\vec S=\hat n\,dS.
+  \label{eq:flujo}
+\end{equation}
+La superficie $S(t)$ está delimitada por la espira móvil y $\hat n$ representa su normal. Si la espira es rígida, de área por vuelta $A_0$, y el campo varía poco sobre su tamaño, se obtiene la aproximación
+\begin{equation}
+  \Phi_B(t)\simeq A_0\,\vec B[\vec r_c(t)]\cdot\hat n(t)
+  =A_0 B(t)\cos\beta(t).
+  \label{eq:flujocorto}
+\end{equation}
+Aquí $\vec r_c(t)$ es la posición del centro de la espira y $\beta$ el ángulo entre el campo y la normal, no entre el campo y el plano del circuito. El área $A_0$ \emph{no cambia} durante la traslación de una espira rígida; puede cambiar el valor del campo que la atraviesa o su orientación relativa.
+
+En un riel recto de inclinación fija, una espira montada rígidamente sobre el carrito mantiene fija su normal respecto del laboratorio. Sin embargo, $\beta$ todavía podría variar si cambia la \emph{dirección local} del campo de las bobinas. Su valor no se determina hasta definir el montaje geométrico.
+
+\subsection{Fuerza electromotriz inducida}
+
+Para una espira de $N_e$ vueltas que enlazan aproximadamente el mismo flujo, la ley de Faraday--Lenz establece \cite{chi2017,serway2009}
+\begin{equation}
+  \boxed{\mathcal E(t)=-N_e\frac{d\Phi_B}{dt}.}
+  \label{eq:faraday}
+\end{equation}
+El signo negativo indica que la corriente inducida se orienta para oponerse a la \emph{variación} del flujo. Para un campo externo estacionario y una trayectoria parametrizada por la distancia $s$, se sigue que
+\begin{equation}
+  \mathcal E(t)=-N_e\frac{d\Phi_B}{ds}\,v(t).
+  \label{eq:espacial}
+\end{equation}
+Esta formulación no exige que el campo sea uniforme ni que el riel tenga una orientación particular, siempre que $\Phi_B(s)$ represente el flujo correspondiente a la posición real del circuito.
+
+Con la aproximación de espira pequeña, área fija y \emph{orientación de la normal constante}, se obtiene
+\begin{equation}
+  \mathcal E(t)\simeq-N_eA_0\left[
+   (\vec v\cdot\nabla)\vec B\right]\cdot\hat n.
+  \label{eq:vectorial}
+\end{equation}
+Si además el ángulo $\beta$ es constante y $B=B(s)$, la expresión se reduce a
+\begin{equation}
+  \boxed{\mathcal E(t)\simeq -N_eA_0\cos\beta
+   \frac{dB}{ds}\,v(t).}
+  \label{eq:beta}
+\end{equation}
+En cambio, si la dirección relativa del campo cambia a lo largo del recorrido, es necesario conservar
+\begin{equation}
+\begin{split}
+\mathcal E(t)\simeq-N_eA_0v(t)\bigg[
+ &\cos\beta\,\frac{dB}{ds}\\
+ &-B\sin\beta\,\frac{d\beta}{ds}\bigg].
+\end{split}
+\label{eq:betavar}
+\end{equation}
+En todas estas ecuaciones, la velocidad puede reemplazarse por $v(t)=v_0+a_ct$ cuando el movimiento es aproximadamente uniformemente acelerado. En el centro ideal de Helmholtz, donde el gradiente axial del campo es nulo, la fem de una espira pequeña que avanza por el eje puede ser cercana a cero, aunque el carrito esté moviéndose.
+
+\subsection{Aproximación de una región con borde definido}
+
+Como modelo ilustrativo, puede suponerse una espira rectangular de altura $h$ y longitud $\ell$ en el sentido del movimiento, entrando a una región de campo uniforme $B_0$ con un borde recto. Si $t=0$ marca el comienzo de la entrada, la profundidad recorrida es
+\begin{equation}
+ x(t)=v_e t+\tfrac12a_ct^2,
+ \qquad 0\le x(t)\le\ell.
+ \label{eq:entrada}
+\end{equation}
+El área \emph{de la espira comprendida en la región de campo} varía entonces según
+\begin{equation}
+  A_{\mathrm{dentro}}(t)=h\,x(t).
+  \label{eq:areaentrante}
+\end{equation}
+Si el campo forma un ángulo constante $\beta$ con la normal, el flujo por vuelta y la magnitud de la fem son
+\begin{align}
+  \Phi_B(t)&=B_0h\,x(t)\cos\beta, \label{eq:flujoideal}\\
+  |\mathcal E(t)|&=N_e B_0h|\cos\beta|\,[v_e+a_ct]. \label{eq:femideal}
+\end{align}
+Una vez completamente dentro de una región \emph{uniforme}, el flujo deja de variar y la fem se anula; durante la salida, su polaridad se invierte. En Helmholtz no existe en general un borde abrupto, por lo que \eqref{eq:areaentrante}--\eqref{eq:femideal} constituyen un modelo de referencia, no el modelo exacto del equipo.
+
+\subsection{Circuito resistivo y registro con osciloscopio}
+
+El circuito móvil se representa mediante una fem inducida $\mathcal E(t)$, una resistencia propia $r_e$ de la espira y una resistencia de carga $R_L$. Si se desprecia la autoinducción y el osciloscopio presenta una impedancia de entrada muy grande frente a $R_L$, la ley de Ohm da
+\begin{align}
+  i(t)&\simeq\frac{\mathcal E(t)}{r_e+R_L}, \label{eq:corriente}\\
+  V_R(t)&\simeq\frac{R_L}{r_e+R_L}\,\mathcal E(t).
+  \label{eq:vr}
+\end{align}
+Así, si $r_e\ll R_L$, el voltaje medido sobre $R_L$ aproxima la fem inducida. El osciloscopio permite registrar $V_R(t)$, incluidos sus máximos, duración y cambios de signo, sin confundir un valor promedio cercano a cero con ausencia de inducción.
+
+\begin{center}
+\begin{circuitikz}[american,scale=0.90,transform shape]
+  \draw (0,0) to[V,l_=$\mathcal E(t)$] (0,2.1)
+   to[R,l=$r_e$] (1.85,2.1)
+   to[R,l=$R_L$] (4.05,2.1)
+   -- (4.05,0) -- (0,0);
+  \draw (1.85,2.1) -- (1.85,3.0) -- (2.67,3.0);
+  \node[draw,circle,minimum size=0.62cm,inner sep=0pt] (scope) at (3.0,3.0) {$V$};
+  \draw (scope.east) -- (4.05,3.0) -- (4.05,2.1);
+  \node[font=\scriptsize,anchor=south] at (3.0,3.37) {Osciloscopio};
+\end{circuitikz}
+\captionof{figure}{Circuito equivalente del montaje propuesto. El osciloscopio mide la tensión en la resistencia de carga $R_L$; la espira móvil se modela mediante $\mathcal E(t)$ y $r_e$. No representa la geometría física definitiva.}
+\label{fig:circuito}
+\end{center}
+
+Si la inductancia $L_e$ no es despreciable durante la variación rápida de la señal, la ecuación eléctrica generalizada es
+\begin{equation}
+  L_e\frac{di}{dt}+(r_e+R_L)i=\mathcal E(t),
+  \label{eq:inductancia}
+\end{equation}
+y no basta aplicar directamente la ley de Ohm instantánea. Además, los cables que unen el circuito móvil al instrumento deben sujetarse de modo que no alteren el movimiento ni capten una fem parásita apreciable; es importante comprobar la referencia de tierra del osciloscopio.
+
+\subsection{Relación que se busca contrastar}
+
+En una misma posición $s^*$ del campo, con configuración y orientación fijas, la relación \eqref{eq:espacial} predice que $|\mathcal E|$ es proporcional a la rapidez. Para el circuito resistivo ideal,
+\begin{equation}
+  \boxed{|V_R(s^*)|\simeq K(s^*)\,v(s^*),}
+  \label{eq:relacion}
+\end{equation}
+con $K(s^*)=\frac{R_L}{r_e+R_L}N_e\left|d\Phi_B/ds\right|_{s^*}$, constante si no se modifica la geometría ni la alimentación de Helmholtz. Se puede variar $v(s^*)$ cambiando la posición de liberación del carrito y comparar las amplitudes del voltaje registradas en el osciloscopio.
+
+Si se cambia la inclinación $\alpha$ entre ensayos, también podría cambiar la orientación de la espira respecto del campo. En tal situación habría que controlar o corregir ese efecto geométrico antes de atribuir toda la variación de $V_R$ a la rapidez.
+
+\begin{thebibliography}{9}
+\bibitem{chi2017} R. Chi Durán, \emph{Problemas propuestos y resueltos de electromagnetismo}, versión marzo de 2017, cap.~15 (ley de Faraday--Lenz), problema 15.2.
+\bibitem{serway2009} R. A. Serway y J. W. Jewett, Jr., \emph{Física para ciencias e ingeniería con física moderna}, vol.~2, 7.\textsuperscript{a} ed., Cengage Learning, 2009, caps.~30--31.
+\end{thebibliography}
+
+\end{multicols}
+\end{document}
