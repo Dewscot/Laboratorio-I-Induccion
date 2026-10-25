@@ -1,0 +1,187 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{lmodern,amsmath,amssymb,geometry,array,tabularx,fancyhdr,enumitem}
+\usepackage[hidelinks]{hyperref}
+\geometry{margin=1.7cm,top=1.9cm,bottom=1.8cm,headheight=14pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist{nosep,leftmargin=*,topsep=3pt}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Laboratorio I · Inducción electromagnética}
+\rhead{\small Guía de mediciones}
+\cfoot{\thepage\ / 4}
+\newcommand{\titulo}[1]{{\Large\bfseries #1}\par\vspace{4pt}}
+\newcommand{\subtitulo}[1]{\vspace{5pt}{\bfseries #1}\par}
+\newcommand{\campo}{\rule{2.3cm}{0.3pt}}
+\newcommand{\fila}[1]{#1 & & & & & & \\[0.47cm]\hline}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\begin{document}
+\titulo{1. Fundamentos y procedimiento}
+\textbf{Objetivo.} Estudiar cómo cambia la señal inducida al variar el ángulo del riel, manteniendo fija la distancia de liberación y controlando la geometría del circuito móvil respecto del campo de Helmholtz.
+
+\subtitulo{Marco teórico simplificado}
+\begin{enumerate}
+\item \textbf{Movimiento del carro.} Para liberación desde el reposo, sin pérdidas apreciables, con $d$ medido \emph{a lo largo del riel} hasta una referencia fija $s^*$:
+\[
+ a=g\sin\theta,\qquad v_{\mathrm{ideal}}(s^*)=\sqrt{2gd\sin\theta},
+ \qquad g\simeq9{,}81\ \mathrm{m/s^2}.
+\]
+La rapidez calculada es una predicción; el rozamiento y el frenado magnético pueden reducirla.
+\item \textbf{Flujo e inducción.} El flujo por vuelta es $\Phi_B=\int_S\vec B\cdot d\vec S$. Si el campo varía poco sobre la espira, $\Phi_B\simeq BA\cos\beta$, donde $\beta$ es el ángulo entre el campo y la \emph{normal} de la espira. Para $N_e$ vueltas:
+\[
+ \mathcal E=-N_e\frac{d\Phi_B}{dt}
+             =-N_e\frac{d\Phi_B}{ds}\,v.
+\]
+El signo expresa la ley de Lenz: la corriente se opone al cambio de flujo. Moverse en un campo uniforme con área y orientación fijas no cambia el flujo.
+\item \textbf{Lo que se mide.} El osciloscopio mide $V_R(t)$ sobre la resistencia de carga $R_L$. Restando la línea base $V_0$, se obtiene $U(t)=V_R(t)-V_0$. Si la entrada del instrumento tiene impedancia alta frente a $R_L$:
+\[
+ i(t)\simeq\frac{U(t)}{R_L},\qquad
+ \mathcal E(t)\simeq\frac{r_e+R_L}{R_L}\,U(t).
+\]
+La segunda relación requiere autoinducción despreciable; $r_e$ es la resistencia de la espira y sus conexiones. No se divide el voltaje sobre $R_L$ por la resistencia total para calcular la corriente.
+\item \textbf{Hipótesis a contrastar.} Para la misma trayectoria, orientación, campo y gradiente espacial relevante, se espera aproximadamente
+\[
+ U_{\mathrm{pk}}=\max_t|U(t)|\ \propto\ v
+ \quad\Longrightarrow\quad U_{\mathrm{pk}},\ I_{\mathrm{pk}}\propto\sqrt{\sin\theta}.
+\]
+Comparar máximos supone que representan una región equivalente del flujo. Al inclinar el riel pueden cambiar $\beta$ y la trayectoria: hay que verificarlo y registrarlo. El campo de Helmholtz es casi uniforme solo cerca del centro y no tiene un borde abrupto.
+\end{enumerate}
+
+\subtitulo{Secuencia de medición}
+\begin{enumerate}
+\item Fijar $s^*$, marcar la liberación a distancia $d$ y montar la espira. Medir resistencias, geometría e incertidumbres (pág. 2).
+\item Conectar el osciloscopio sobre $R_L$; comprobar referencia de tierra, factor de sonda y cables sin tracción sobre el carro. Registrar señal en reposo y línea base.
+\item Elegir hasta seis ángulos según el montaje. Para cada uno, comprobar distancia, orientación, trayectoria y corriente de Helmholtz.
+\item Soltar sin empujar; registrar tres trazas por ángulo. Guardar archivos, extremos con signo, duración y anomalías (pág. 3). Si cambia una escala, anotarla.
+\item Calcular amplitudes, corriente y promedios (pág. 4); graficar amplitud frente a $\sqrt{\sin\theta}$ o frente a rapidez medida.
+\end{enumerate}
+
+\newpage
+\small
+\titulo{2. Caracterización y condiciones del montaje}
+Fecha: \campo\quad Grupo / sección: \campo
+
+Integrantes: \hrulefill
+
+\textbf{Referencias espaciales.} $s^*$ es una marca física común para todos los ángulos; $d$ va desde la liberación hasta esa marca. Dibujar riel, bobinas, espira, normal y conexiones. Indicar qué elemento del carro se alinea con cada marca.
+
+\fbox{\parbox[t][1.3cm][t]{0.97\linewidth}{\small Croquis y definición de $s^*$, $d$ y $\beta$:}}
+
+\subtitulo{Magnitudes fijas e instrumentos}
+\small
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\linewidth}{|p{9.0cm}|Y|Y|}\hline
+\textbf{Magnitud / instrumento} & \textbf{Valor} & \textbf{Incertidumbre $u$} \\\hline
+Distancia $d$ sobre el riel (m) & & \\\hline
+Masa del carro con espira $m$ (kg) & & \\\hline
+Resistencia de carga $R_L$ ($\Omega$) & & \\\hline
+Resistencia de espira y conexiones $r_e$ ($\Omega$) & & \\\hline
+Vueltas de la espira móvil $N_e$ (conteo) & & \\\hline
+Área por vuelta $A$ (m$^2$); dimensiones al margen & & \\\hline
+Radio Helmholtz $R_H$ / separación (m) & & \\\hline
+Vueltas por bobina Helmholtz $N_H$ (conteo) & & \\\hline
+Medidor de ángulo: modelo / resolución (grados) & & \\\hline
+Osciloscopio: modelo / resolución efectiva en U (mV) & & \\\hline
+Resolución temporal efectiva (ms) & & \\\hline
+\end{tabularx}
+\small Si un dato no está disponible, escribir N/D. Indicar cómo se estimó $u$ (resolución, especificación o mediciones repetidas): \hrulefill
+
+\textbf{Osciloscopio.} Canal: \campo\quad Sonda: $\times$\campo
+
+Escala vertical: \campo\ V/div\quad Base de tiempo: \campo\ ms/div
+
+Acoplamiento: \campo\quad Muestreo: \campo\quad Disparo: \campo
+
+\subtitulo{Condiciones por ángulo (grupos A--F)}
+\small $\beta$ se refiere a la normal y al campo local en $s^*$. En ``geometría'' indicar si se conserva trayectoria y orientación, o describir el cambio. $V_0$ se mide sin movimiento; anotar en pág. 3 si deriva.
+
+\begin{tabularx}{\linewidth}{|c|Y|Y|Y|Y|Y|p{3.4cm}|}\hline
+Grupo & $\theta$ ($^\circ$) & $u_\theta$ ($^\circ$) & $\beta$ ($^\circ$) & $I_H$ (A) & $V_0$ (mV) & Geometría / cambios \\\hline
+\fila{A}\fila{B}\fila{C}\fila{D}\fila{E}\fila{F}
+\end{tabularx}
+\small $I_H$ es la corriente por bobina; registrar conexiones y estabilidad. Si se desea estimar el campo central: $B_H(0)=(4/5)^{3/2}\mu_0N_HI_H/R_H$, solo para la geometría de Helmholtz.
+
+\newpage
+\small
+\renewcommand{\fila}[1]{#1 & & & & & & \\[0.38cm]\hline}
+\titulo{3. Registro de mediciones individuales}
+\textbf{Tres repeticiones por ángulo.} A1--A3 corresponden al ángulo A de la pág. 2, y así sucesivamente. Las casillas se completan con datos reales.
+
+\textbf{Extremos:} $U_+=\max(V_R-V_0)$ y $U_-=\min(V_R-V_0)$, ambos con su signo. Registrar lecturas corregidas por el factor de sonda, sin aplicarlo dos veces.
+
+\textbf{Duración $\Delta t$:} usar el mismo criterio en todas las trazas (p. ej., ancho a media altura del mismo lóbulo). Criterio elegido: \hrulefill
+
+\textbf{Rapidez medida $v_{\mathrm{med}}$ (opcional):} usar fotopuerta o sensor cerca de $s^*$; anotar método y posición. No confundirla con $v_{\mathrm{ideal}}$ ni con la rapidez media de todo el recorrido.
+
+Método / distancia de fotopuerta / posición: \hrulefill
+
+\small
+\renewcommand{\arraystretch}{1.0}
+\begin{tabularx}{\linewidth}{|p{0.65cm}|Y|Y|Y|Y|p{2.8cm}|p{4.0cm}|}\hline
+\textbf{ID} & $U_+$ (mV) & $U_-$ (mV) & $\Delta t$ (ms) & $v_{\mathrm{med}}$ (m/s) & \textbf{Archivo / captura} & \textbf{Observaciones} \\\hline
+\fila{A1}\fila{A2}\fila{A3}
+\fila{B1}\fila{B2}\fila{B3}
+\fila{C1}\fila{C2}\fila{C3}
+\fila{D1}\fila{D2}\fila{D3}
+\fila{E1}\fila{E2}\fila{E3}
+\fila{F1}\fila{F2}\fila{F3}
+\end{tabularx}
+\normalsize
+\vspace{6pt}
+En observaciones: ruido, recorte de señal, empuje accidental, cables que tiran, cambio de escalas, nueva línea base o variación geométrica. Identificar las repeticiones descartadas y su motivo; repetirlas con un nuevo ID.
+
+\textbf{Control de fondo, si se realiza:} anotar el ID de una traza con el carro quieto o con $I_H=0$, manteniendo las demás condiciones, y su amplitud de ruido.
+
+ID / condición / ruido: \hrulefill
+
+\newpage
+\normalsize
+\titulo{4. Cálculos y resumen para el análisis}
+\textbf{Por cada repetición:}
+\[
+ U_{\mathrm{pk}}=\max(|U_+|,|U_-|),\qquad
+ U_{\mathrm{pp}}=U_+-U_-,\qquad
+ I_{\mathrm{pk}}[\mathrm{mA}]=\frac{U_{\mathrm{pk}}[\mathrm{mV}]}{R_L[\Omega]}.
+\]
+$U_{\mathrm{pk}}$ es la máxima magnitud respecto de la línea base; $U_{\mathrm{pp}}$ es pico a pico. Son magnitudes distintas. La corriente se calcula con $R_L$, no con la resistencia de las bobinas de Helmholtz.
+
+\textbf{Por cada ángulo:} para $n$ repeticiones válidas de $U_{\mathrm{pk}}$, calcular
+\[
+ \overline U=\frac{1}{n}\sum_{j=1}^n U_j,\qquad
+ s_U=\sqrt{\frac{\sum_{j=1}^n(U_j-\overline U)^2}{n-1}},\qquad
+ u_{\overline U,\mathrm{rep}}=\frac{s_U}{\sqrt n}.
+\]
+$s_U$ describe la dispersión; $s_U/\sqrt n$ es solo la incertidumbre del promedio por repetibilidad. Registrar aparte los aportes de resolución, línea base y calibración. Con una sola repetición no se calcula $s_U$.
+
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\linewidth}{|c|Y|Y|Y|Y|Y|Y|Y|}\hline
+Grupo & $\theta$ ($^\circ$) & $\sqrt{\sin\theta}$ & $v_{\rm ideal}$ (m/s) & $n$ & $\overline U$ (mV) & $s_U$ (mV) & $\overline I_{\rm pk}$ (mA) \\\hline
+A & & & & & & & \\[0.8cm]\hline
+B & & & & & & & \\[0.8cm]\hline
+C & & & & & & & \\[0.8cm]\hline
+D & & & & & & & \\[0.8cm]\hline
+E & & & & & & & \\[0.8cm]\hline
+F & & & & & & & \\[0.8cm]\hline
+\end{tabularx}
+\normalsize
+
+Usar $v_{\rm ideal}=\sqrt{2gd\sin\theta}$ y $\overline I_{\rm pk}=\overline U/R_L$. Evaluar el seno en grados si $\theta$ se ingresa en grados.
+
+\subtitulo{Gráficos e interpretación}
+\begin{enumerate}
+\item Graficar $\overline U$ o $\overline I_{\rm pk}$ frente a $\sqrt{\sin\theta}$. El modelo ideal predice una recta si se conserva el factor geométrico. Ajustar pendiente e intercepto sin imponer inicialmente que pase por cero.
+\item Si hay medición independiente de rapidez, comparar también $U_{\rm pk}$ con $v_{\rm med}$ y contrastar $v_{\rm med}$ con $v_{\rm ideal}$.
+\item Revisar polaridad y duración de las trazas. No atribuir toda desviación al rozamiento: considerar orientación, trayectoria, corriente $I_H$, ruido y respuesta inductiva.
+\end{enumerate}
+
+\textbf{Tendencia observada / limitaciones del montaje:}
+
+\rule{\linewidth}{0.3pt}\par\vspace{0.2cm}\rule{\linewidth}{0.3pt}
+
+\vfill
+\footnotesize\textbf{Referencias de esta guía:} \texttt{marco\_teorico\_experimento\_plano\_inclinado\_faraday.md} y \texttt{main.pdf}, documento de fundamentos del montaje. Se usa $\theta$ para el ángulo del riel ($\alpha$ en \texttt{main.pdf}) y $d$ para la distancia de liberación ($L$ en el archivo Markdown).
+\end{document}
