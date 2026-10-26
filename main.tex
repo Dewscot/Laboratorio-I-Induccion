@@ -16,6 +16,8 @@
 \captionsetup{font=small,labelfont=bf,justification=centering,skip=4pt,hypcap=false}
 \definecolor{udecazul}{HTML}{003A70}
 \definecolor{udecoro}{HTML}{C79A2B}
+% Marcas temporales para la revisión posterior de ecuaciones.
+\newcommand{\revisarecuaciones}[1]{\par\noindent{\small\bfseries\color{red!70!black}Revisar: #1.}\par}
 \addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
 
 % Plantilla de trabajo: los datos del equipo y el montaje final estan pendientes.
@@ -124,6 +126,7 @@ Si el movimiento coincidiera con el eje común $z$ de las bobinas, la componente
 \end{split}
 \label{eq:bhz}
 \end{equation}
+\revisarecuaciones{ecuación \eqref{eq:bhz}}
 Esta última expresión es válida \emph{solo sobre el eje}. Si el riel lo cruza de otra manera, se necesita la distribución vectorial $\vec B(\vec r)$ correspondiente a esa trayectoria.
 
 \subsection{Flujo magnético de la espira móvil}
@@ -140,6 +143,7 @@ La superficie $S(t)$ está delimitada por la espira móvil y $\hat n$ representa
   =A_0 B(t)\cos\beta(t).
   \label{eq:flujocorto}
 \end{equation}
+\revisarecuaciones{ecuación \eqref{eq:flujocorto}}
 Aquí $\vec r_c(t)$ es la posición del centro de la espira y $\beta$ el ángulo entre el campo y la normal, no entre el campo y el plano del circuito. El área $A_0$ \emph{no cambia} durante la traslación de una espira rígida; puede cambiar el valor del campo que la atraviesa o su orientación relativa.
 
 En un riel recto de inclinación fija, una espira montada rígidamente sobre el carrito mantiene fija su normal respecto del laboratorio. Sin embargo, $\beta$ todavía podría variar si cambia la \emph{dirección local} del campo de las bobinas. Su valor no se determina hasta definir el montaje geométrico.
@@ -164,12 +168,14 @@ Con la aproximación de espira pequeña, área fija y \emph{orientación de la n
    (\vec v\cdot\nabla)\vec B\right]\cdot\hat n.
   \label{eq:vectorial}
 \end{equation}
+\revisarecuaciones{ecuación \eqref{eq:vectorial}}
 Si además el ángulo $\beta$ es constante y $B=B(s)$, la expresión se reduce a
 \begin{equation}
   \boxed{\mathcal E(t)\simeq -N_eA_0\cos\beta
    \frac{dB}{ds}\,v(t).}
   \label{eq:beta}
 \end{equation}
+\revisarecuaciones{ecuación \eqref{eq:beta}}
 En cambio, si la dirección relativa del campo cambia a lo largo del recorrido, es necesario conservar
 \begin{equation}
 \begin{split}
@@ -179,6 +185,7 @@ En cambio, si la dirección relativa del campo cambia a lo largo del recorrido, 
 \end{split}
 \label{eq:betavar}
 \end{equation}
+\revisarecuaciones{ecuación \eqref{eq:betavar}}
 En todas estas ecuaciones, la velocidad puede reemplazarse por $v(t)=v_0+a_ct$ cuando el movimiento es aproximadamente uniformemente acelerado. En el centro ideal de Helmholtz, donde el gradiente axial del campo es nulo, la fem de una espira pequeña que avanza por el eje puede ser cercana a cero, aunque el carrito esté moviéndose.
 
 \subsection{Aproximación de una región con borde definido}
@@ -189,6 +196,7 @@ Como modelo ilustrativo, puede suponerse una espira rectangular de altura $h$ y 
  \qquad 0\le x(t)\le\ell.
  \label{eq:entrada}
 \end{equation}
+\revisarecuaciones{ecuación \eqref{eq:entrada}}
 El área \emph{de la espira comprendida en la región de campo} varía entonces según
 \begin{equation}
   A_{\mathrm{dentro}}(t)=h\,x(t).
@@ -209,6 +217,7 @@ El circuito móvil se representa mediante una fem inducida $\mathcal E(t)$, una 
   V_R(t)&\simeq\frac{R_L}{r_e+R_L}\,\mathcal E(t).
   \label{eq:vr}
 \end{align}
+\revisarecuaciones{ecuaciones \eqref{eq:corriente} y \eqref{eq:vr}}
 Así, si $r_e\ll R_L$, el voltaje medido sobre $R_L$ aproxima la fem inducida. El osciloscopio permite registrar $V_R(t)$, incluidos sus máximos, duración y cambios de signo, sin confundir un valor promedio cercano a cero con ausencia de inducción.
 
 \begin{center}
@@ -231,6 +240,7 @@ Si la inductancia $L_e$ no es despreciable durante la variación rápida de la s
   L_e\frac{di}{dt}+(r_e+R_L)i=\mathcal E(t),
   \label{eq:inductancia}
 \end{equation}
+\revisarecuaciones{ecuación \eqref{eq:inductancia}}
 y no basta aplicar directamente la ley de Ohm instantánea. Además, los cables que unen el circuito móvil al instrumento deben sujetarse de modo que no alteren el movimiento ni capten una fem parásita apreciable; es importante comprobar la referencia de tierra del osciloscopio.
 
 \subsection{Relación que se busca contrastar}
@@ -240,6 +250,7 @@ En una misma posición $s^*$ del campo, con configuración y orientación fijas,
   \boxed{|V_R(s^*)|\simeq K(s^*)\,v(s^*),}
   \label{eq:relacion}
 \end{equation}
+\revisarecuaciones{ecuación \eqref{eq:relacion}}
 con $K(s^*)=\frac{R_L}{r_e+R_L}N_e\left|d\Phi_B/ds\right|_{s^*}$, constante si no se modifica la geometría ni la alimentación de Helmholtz. Se puede variar $v(s^*)$ cambiando la posición de liberación del carrito y comparar las amplitudes del voltaje registradas en el osciloscopio.
 
 Si se cambia la inclinación $\alpha$ entre ensayos, también podría cambiar la orientación de la espira respecto del campo. En tal situación habría que controlar o corregir ese efecto geométrico antes de atribuir toda la variación de $V_R$ a la rapidez.

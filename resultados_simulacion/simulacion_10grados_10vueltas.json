@@ -1,0 +1,18 @@
+{
+  "origen": "Simulación ideal, NO datos medidos",
+  "parametros": {
+    "angulo": 10.0,
+    "campo_mT": 1,
+    "vueltas": 10,
+    "ancho_cm": 10.0,
+    "largo_cm": 10.0,
+    "zona_cm": 30.0,
+    "direccion_B": 90.0,
+    "resistencia": 1.0,
+    "carga": 1000.0,
+    "sonda": 1
+  },
+  "largo_riel_m": 1.5,
+  "resumen": "β (normal–campo): 10.0° | v en el centro: 1.60 m/s\nFem pico: 1.772 mV\nVoltaje en la carga: 1.770 mV pico / 3.234 mV pico a pico\nHameg, sonda ×1: 0.35 div a 5 mV/div; 1.77 div con Y×5 (1 mV/div)\nPulsos entrada / salida: 70.0 / 57.1 ms | Base inicial: 50 ms/div\nPico ≥ 1 división con Y×5: amplitud candidata.\nLa detectabilidad requiere comprobar ruido y disparo; 1 div es una referencia visual.",
+  "modelo": "Julio, apartado 2.5: campo uniforme con borde definido. Espira paralela al riel."
+}
