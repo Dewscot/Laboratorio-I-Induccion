@@ -1,0 +1,27 @@
+# Archivos de compilacion LaTeX; incluye PDF generados provisionalmente
+.latex-build/
+
+# Auxiliares antiguos que pudieran estar fuera de la carpeta de compilacion
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.synctex
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
