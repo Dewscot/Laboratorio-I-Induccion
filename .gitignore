@@ -21,6 +21,9 @@
 *.vrb
 *.xdv
 
+# PDF generados accidentalmente en la raiz (no afecta documentos/ ni entregables/)
+/*.pdf
+
 # Python
 __pycache__/
 *.py[cod]
