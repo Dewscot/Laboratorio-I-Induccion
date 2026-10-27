@@ -16,7 +16,7 @@ python simulacion_induccion.py --exportar --angulo 10 --vueltas 10
 
 ## Modelo y geometría
 
-Fuente: [marco teorico julio.pdf](<marco teorico julio.pdf>), ecuaciones 1–5, 10–11 y apartado 2.5 (ecuaciones 15–18). La carga resistiva corresponde al apartado 2.6, incorporando además la resistencia de entrada del osciloscopio en paralelo con la carga.
+Fuente: [marco teorico julio.pdf](<Pdf extras/marco teorico julio.pdf>), ecuaciones 1–5, 10–11 y apartado 2.5 (ecuaciones 15–18). La carga resistiva corresponde al apartado 2.6, incorporando además la resistencia de entrada del osciloscopio en paralelo con la carga.
 
 - Riel recto de **1,50 m**, carro liberado desde el reposo. La posición representa el centro de la espira.
 - El centro magnético permanece en **s = 0,75 m**; el riel gira alrededor de ese punto en el esquema. Las bobinas conservan su orientación en el laboratorio.
@@ -43,7 +43,7 @@ Se omiten rozamiento, inercia de las ruedas, frenado magnético, autoinducción,
 
 ## Comparación con el Hameg HM 203-7
 
-Se consultó el [manual aportado](<Hameg - HM203-7, Manual Esp.pdf>), página PDF 3 (P1: datos técnicos), PDF 4 (Z1: sondas) y PDF 7 (M3: magnitud de señal):
+Se consultó el [manual aportado](<Pdf extras/Hameg - HM203-7, Manual Esp.pdf>), página PDF 3 (P1: datos técnicos), PDF 4 (Z1: sondas) y PDF 7 (M3: magnitud de señal):
 
 | Característica | Valor del manual |
 |---|---|
