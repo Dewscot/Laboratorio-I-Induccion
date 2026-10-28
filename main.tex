@@ -7,10 +7,10 @@
 \usepackage[american]{circuitikz}
 \usepackage{siunitx,hyperref,titlesec}
 \usetikzlibrary{arrows.meta,calc}
-\geometry{top=1.8cm,bottom=2.0cm,left=1.75cm,right=1.75cm,headheight=14pt}
+\geometry{top=1.6cm,bottom=1.65cm,left=1.75cm,right=1.75cm,headheight=14pt}
 \setlength{\columnsep}{0.65cm}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{0.24em}
+\setlength{\parskip}{0.18em}
 \titlespacing*{\section}{0pt}{1.15ex plus .5ex minus .2ex}{0.55ex}
 \titlespacing*{\subsection}{0pt}{0.9ex plus .35ex minus .2ex}{0.4ex}
 \setlist{nosep,leftmargin=*}
@@ -87,7 +87,7 @@ Una variación del flujo magnético a través de una espira conductora origina u
 
 \textbf{Variable dependiente:} amplitud máxima $U_{\mathrm{pk}}$ de la tensión inducida, medida respecto de la línea base del osciloscopio.
 
-\textbf{Variables de control:} distancia de liberación $d$, corriente $I_H$ de Helmholtz, número de vueltas $N_e$ y dimensiones de la espira, resistencia de carga y forma de soltar el carrito. Se registrará la orientación relativa de la espira y las bobinas, que puede cambiar al variar $\theta$.
+\textbf{Variables de control:} distancia de liberación $d$, corriente $I_H$ de Helmholtz, número de vueltas $N_e$ y dimensiones de la espira, resistencia de carga y forma de soltar el carrito. Se procurará mantener su orientación respecto del campo y una trayectoria comparable entre ensayos.
 
 \section{Marco teórico}
 
@@ -154,11 +154,36 @@ Si entre mediciones se mantiene aproximadamente constante el gradiente relevante
  \boxed{U_{\mathrm{pk}}\propto\sqrt{\sin\theta}.}
  \label{eq:hipotesis}
 \end{equation}
-Esta es una relación \emph{condicional}, no una ley general del montaje. Al inclinar el riel puede cambiar también el ángulo $\beta$ y la trayectoria de la espira respecto de las bobinas. Por ejemplo, si $\vec B$ es vertical y el plano de la espira permanece paralelo al riel, $\beta\simeq\theta$ y el modelo simplificado incorpora un factor $\cos\theta$; además, debe mantenerse comparable la región de variación espacial del flujo. Por ello, se interpretará la dependencia con $\theta$ atendiendo a la geometría real.
+Esta proporcionalidad es una \emph{predicción ideal}. En la disposición propuesta, el campo central es aproximadamente transversal al riel y la espira se orienta para que su normal sea casi paralela a $\vec B$. Se supone que, al variar $\theta$, la espira recorre regiones comparables del campo; los posibles cambios de trayectoria se considerarán como fuente de error experimental.
 
-\section{Medición propuesta}
+\section{Montaje y medición propuestos}
 
-Se fijarán las bobinas de Helmholtz, alimentadas con corriente continua constante, y se hará pasar el carrito con una espira conductora por la región magnética. El riel se inclinará a distintos ángulos $\theta$, procurando mantener fija la distancia $d$ recorrida desde el punto de liberación hasta una referencia cercana a la zona de interacción. El carrito se soltará sin impulso inicial.
+Se instalarán las bobinas de Helmholtz fijas y alimentadas con corriente continua, una a cada lado del riel. Sus planos serán verticales y su eje común horizontal, transversal al desplazamiento del carrito, que pasará por la región central sin atravesar los aros. La espira captadora se fijará verticalmente sobre el carrito, en el plano longitudinal del riel, de forma que su normal se oriente aproximadamente con el campo central. Su forma, tamaño y número de vueltas dependerán del material disponible.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.78,>=Latex, every node/.style={font=\scriptsize}]
+  % Vista superior: los planos de las bobinas son verticales.
+  \fill[udecazul!7,rounded corners=4pt] (-1.25,-0.40) rectangle (1.25,0.65);
+  \draw[gray!75,line width=2.0pt] (-0.43,-1.55)--(-0.43,1.55);
+  \draw[gray!75,line width=2.0pt] (0.43,-1.55)--(0.43,1.55);
+  \draw[udecoro,line width=3.0pt] (-1.84,-1.15)--(-1.84,1.15);
+  \draw[udecoro,line width=3.0pt] (1.84,-1.15)--(1.84,1.15);
+  \node[above] at (-1.84,1.17) {H$_1$};
+  \node[above] at (1.84,1.17) {H$_2$};
+  \draw[->,line width=1.4pt,purple!75!black] (-1.43,0.30)--(1.43,0.30);
+  \node[above,purple!75!black] at (0.86,0.30) {$\vec B$};
+  \draw[fill=gray!20,draw=gray!75,rounded corners=2pt] (-0.31,-1.12) rectangle (0.31,-0.62);
+  \draw[line width=2.2pt,udecoro!80!black] (0,-1.08)--(0,-0.65);
+  \draw[->,line width=1.1pt] (0,-0.59)--(0,-0.18);
+  \node[anchor=west] at (0.48,-0.93) {Espira};
+  \node[anchor=west] at (0.48,-1.19) {Carrito};
+  \node[anchor=east] at (-0.54,-1.41) {Riel};
+\end{tikzpicture}
+\captionof{figure}{Vista superior del montaje propuesto (no a escala).}
+\label{fig:montaje}
+\end{center}
+
+Para variar $\theta$, se elevará un extremo del riel mediante un soporte, manteniendo apoyado el otro. En cada ensayo se conservará la distancia $d$ de liberación respecto de una referencia cercana al centro magnético; el carrito se soltará sin impulso inicial. Se procurará que la espira cruce regiones comparables del campo. Los cambios de altura al inclinar el riel se considerarán como posible fuente de error.
 
 \begin{center}
 \begin{circuitikz}[american,scale=0.83,transform shape]
@@ -175,11 +200,11 @@ Se fijarán las bobinas de Helmholtz, alimentadas con corriente continua constan
 \label{fig:circuito}
 \end{center}
 
-El osciloscopio se conectará en paralelo con $R_L$ para observar la forma temporal de la señal. Se anotarán la escala de tensión, la línea base, los máximos de cada polaridad y el ancho de los pulsos. Se realizarán varias repeticiones para cada ángulo, manteniendo las conexiones y la alimentación de las bobinas. Si se usa el osciloscopio analógico Hameg HM203-7, se deberá observar repetidamente la traza o filmar la pantalla, pues el equipo no almacena automáticamente cada pulso. Los cables se dispondrán de manera que no frenen el carrito ni introduzcan señales parásitas importantes.
+El osciloscopio se conectará en paralelo con $R_L$. Para cada ángulo se registrarán la línea base, los máximos de ambas polaridades y la duración de los pulsos, con varias repeticiones y alimentación de Helmholtz constante. Si se emplea el Hameg HM203-7, será conveniente filmar la traza, ya que no almacena los pulsos. Los cables no deberán frenar el carrito ni generar señales parásitas apreciables.
 
-\textbf{Contraste experimental.} Se graficará $U_{\mathrm{pk}}$ frente a $\sqrt{\sin\theta}$ y se evaluará la tendencia junto con la dispersión de las repeticiones. Si puede obtenerse una medida independiente de rapidez (por ejemplo, mediante video), también se comparará $U_{\mathrm{pk}}$ con $v$. La interpretación considerará las incertidumbres del ángulo, la tensión y la distancia, así como los posibles cambios geométricos durante la inclinación.
+\textbf{Contraste experimental.} Se graficará $U_{\mathrm{pk}}$ frente a $\sqrt{\sin\theta}$, considerando la dispersión e incertidumbres. Si se dispone de una medida independiente de rapidez, también se contrastará $U_{\mathrm{pk}}$ con $v$.
 
-\textbf{Condición previa.} Se deberá comprobar que la normal a la espira tenga una componente apreciable en la dirección del campo y que las entradas/salidas generen una señal detectable. Si el campo es paralelo al plano de la espira a lo largo del recorrido, el flujo y la tensión esperada pueden ser muy pequeños.
+\textbf{Condición previa.} Se comprobará que la normal de la espira esté aproximadamente orientada en la dirección del campo central y que la señal inducida resulte detectable. Si el campo es paralelo al plano de la espira, el flujo y la señal pueden ser muy pequeños.
 
 \begin{thebibliography}{9}
 \bibitem{chi2017} R. Chi Durán, \emph{Problemas propuestos y resueltos de electromagnetismo}, versión marzo de 2017, cap.~15 (ley de Faraday--Lenz).
