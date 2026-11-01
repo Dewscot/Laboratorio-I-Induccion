@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#102d2b">
+  <meta name="description" content="Explora la inducción de una espira que se mueve entre bobinas laterales de Helmholtz.">
+  <title>Inducción · Laboratorio virtual</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23102d2b'/%3E%3Cpath d='M8 32h10l7-18 14 36 7-18h10' fill='none' stroke='%237ee6c1' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="physics.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="./index.html"><span class="brand-icon">∿</span> INDUCCIÓN <span class="brand-divider">/</span> <span class="brand-sub">Laboratorio virtual</span></a><span class="model-tag"><i></i> Modelo Helmholtz lateral</span></header>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sidebar-title"><div><span class="eyebrow">MONTAJE EXPERIMENTAL</span><h2>Explora los parámetros</h2></div><button id="reset" class="icon-button" title="Restablecer valores de ejemplo" aria-label="Restablecer valores de ejemplo">↺</button></div>
+  <form id="parameters" novalidate>
+    <section class="angle-section"><div class="angle-heading"><label for="angulo-exacto">Inclinación del riel</label><div class="angle-entry"><input id="angulo-exacto" name="angulo" type="number" min="0" max="60" step="any" value="10" aria-describedby="angle-help"><span aria-hidden="true">°</span></div></div><input id="angulo-slider" name="angulo-slider" type="range" min="0" max="60" step="any" value="10" aria-label="Ajustar inclinación del riel"><div class="range-labels"><span>0°</span><span>30°</span><span>60°</span></div><p id="angle-help" class="field-note">Escribe el ángulo exacto, entre 0° y 60°.</p></section>
+    <section class="control-section"><h3><span>01</span> Bobinas laterales</h3>
+      <label for="campo_mT">Campo central B₀ <span>mT</span></label><input id="campo_mT" name="campo_mT" type="number" min="0" step="0.1" value="1">
+      <div class="input-pair"><div><label for="radio_cm">Radio R <span>cm</span></label><input id="radio_cm" name="radio_cm" type="number" min="2" max="80" step="1" value="15"></div><div><label for="separacion_cm">Separación D <span>cm</span></label><input id="separacion_cm" name="separacion_cm" type="number" min="2" max="100" step="1" value="15"></div></div>
+      <p class="field-note" id="helmholtz-note">D = R · configuración de Helmholtz</p>
+    </section>
+    <section class="control-section"><h3><span>02</span> Espira captadora</h3>
+      <label for="vueltas">Número de vueltas</label><input id="vueltas" name="vueltas" type="number" min="1" step="1" value="10">
+      <div class="input-pair"><div><label for="largo_cm">Largo <span>cm</span></label><input id="largo_cm" name="largo_cm" type="number" min="0.1" max="80" step="1" value="10"></div><div><label for="ancho_cm">Alto en su plano <span>cm</span></label><input id="ancho_cm" name="ancho_cm" type="number" min="0.1" max="80" step="1" value="10"></div></div>
+      <p class="field-note">Espira vertical en el plano longitudinal del riel.</p>
+    </section>
+    <details class="control-section" open><summary>03 <span>Circuito y sonda</span></summary><div class="input-pair"><div><label for="resistencia">R propia <span>Ω</span></label><input id="resistencia" name="resistencia" type="number" min="0" step="0.1" value="1"></div><div><label for="carga">R carga <span>Ω</span></label><input id="carga" name="carga" type="number" min="0.01" step="100" value="1000"></div></div><label for="sonda">Sonda del osciloscopio</label><select id="sonda" name="sonda"><option value="1">×1 · entrada de 1 MΩ</option><option value="10">×10 · entrada de 10 MΩ</option></select></details>
+  </form>
+  <p class="example-note"><span>ⓘ</span> Valores de ejemplo. Sustitúyelos por las dimensiones y el campo de tu montaje.</p>
+</aside>
+<main>
+  <div class="page-heading"><div><span class="eyebrow">FARADAY EN MOVIMIENTO</span><h1>Del movimiento a la señal.</h1><p>Una espira, dos bobinas y un campo que cambia a su paso.</p></div><button id="export" class="secondary-button" disabled>↓ <span>Exportar CSV</span></button></div>
+  <div id="error" class="error-message" role="alert" hidden></div>
+  <section class="metrics" aria-label="Resultados de la simulación">
+    <div><span>Voltaje pico · carga</span><strong id="peak">—</strong><small id="pp">— mV pico a pico</small></div>
+    <div><span>Rapidez al centro</span><strong id="speed">—</strong><small>Movimiento ideal sin rozamiento</small></div>
+    <div><span>Altura en el Hameg</span><strong id="divisions">—</strong><small id="division-note">Sonda ×1 · 1 mV/div con Y×5</small></div>
+  </section>
+  <section class="scene-panel" aria-labelledby="scene-title"><div class="panel-heading"><div><span class="eyebrow">EL MONTAJE</span><h2 id="scene-title">Entre las bobinas</h2></div><div class="view-switch" role="group" aria-label="Vista del montaje"><button data-view="perspective" class="active" aria-pressed="true">Perspectiva</button><button data-view="top" aria-pressed="false">Desde arriba</button></div></div>
+    <canvas id="scene" aria-label="Dos bobinas a ambos costados del riel, campo transversal y espira en movimiento"></canvas>
+    <div class="scene-legend"><span><i class="dot copper"></i> Espira móvil</span><span><i class="dot green"></i> Campo transversal B</span><span class="rail-length">Riel de 1,50 m</span></div>
+    <div class="transport"><button id="play" class="play-button" disabled>▶ Iniciar</button><button id="rewind" class="icon-button" title="Volver al inicio" aria-label="Volver al inicio">↤</button><label class="sr-only" for="timeline">Tiempo de simulación</label><input id="timeline" type="range" min="0" max="1000" step="1" value="0"><span id="time-label" class="mono">0,000 s</span><label class="sr-only" for="rate">Velocidad de reproducción</label><select id="rate" title="Velocidad de reproducción"><option value="0.25">0,25×</option><option value="0.5" selected>0,5×</option><option value="1">1×</option><option value="2">2×</option></select></div>
+  </section>
+  <section class="plot-panel" aria-labelledby="plot-title"><div class="panel-heading"><div><span class="eyebrow">LA RESPUESTA</span><h2 id="plot-title">Señal inducida</h2></div><div class="plot-tabs" role="group" aria-label="Magnitud representada"><button data-plot="signal" class="active" aria-pressed="true">Señal</button><button data-plot="field" aria-pressed="false">Campo</button><button data-plot="flux" aria-pressed="false">Flujo</button><button data-plot="position" aria-pressed="false">Posición</button><button data-plot="scope" aria-pressed="false">Hameg</button></div></div>
+    <div class="plot-key" id="plot-key"><span class="key-line orange"></span> Fem <span class="key-line teal"></span> Voltaje en la carga</div>
+    <div id="scope-controls" class="scope-controls" hidden><label>Vertical <select id="vdiv"><option value="1">1 mV/div · Y×5</option><option value="5" selected>5 mV/div</option><option value="10">10 mV/div</option><option value="20">20 mV/div</option><option value="50">50 mV/div</option><option value="100">100 mV/div</option><option value="200">200 mV/div</option><option value="500">500 mV/div</option></select></label><label>Base de tiempo <select id="tdiv"><option value="10">10 ms/div</option><option value="20">20 ms/div</option><option value="50" selected>50 ms/div</option><option value="100">100 ms/div</option></select></label><button id="scope-fit" class="text-button">Ajustar escalas</button></div>
+    <canvas id="plot" aria-label="Gráfica de la predicción física"></canvas><p id="plot-caption" class="plot-caption">Tensiones calculadas durante todo el recorrido. La línea vertical sigue a la espira.</p>
+  </section>
+  <details class="model-details"><summary>Cómo se calcula esta predicción <span>↗</span></summary><div><p><strong>Geometría lateral.</strong> Las bobinas están a ambos costados del riel. Su eje común es transversal. La espira rectangular está en el plano vertical longitudinal: su normal está alineada con el campo en el plano medio. Al inclinar el riel dentro de ese plano no aparece el factor cos θ del montaje anterior.</p><p><strong>Campo suave.</strong> Se integra Biot–Savart para dos anillos circulares, con corrientes iguales y del mismo sentido, y se normaliza al campo central B₀. El flujo se integra sobre toda el área de la espira. No se imponen bordes de campo abruptos.</p><div class="equations">a = g sen θ &nbsp; · &nbsp; Φ = ∫ B · dS &nbsp; · &nbsp; ℰ = −N (dΦ/ds) v &nbsp; · &nbsp; V = ℰ R<sub>ef</sub> / (r + R<sub>ef</sub>)</div><p><strong>Supuestos.</strong> Riel centrado y giro alrededor del centro de las bobinas; espira centrada y sin núcleo. Se omiten rozamiento, inercia de ruedas, inductancia, frenado magnético, capacitancia y ruido. B₀ es un dato introducido, no un cálculo de la corriente de alimentación. La perspectiva es esquemática.</p><p><strong>Hameg HM 203-7.</strong> Se representa la tensión que llega al BNC después de la atenuación de la sonda, con entrada resistiva idealizada y acoplamiento DC. La vista conserva la curva completa como referencia; el instrumento analógico requiere registrar la pasada real. Una división es una referencia visual, no un umbral de detección.</p></div></details>
+  <footer><span><i></i> Predicción ideal · no son datos experimentales</span><span id="compute-status" role="status">Preparando modelo…</span></footer>
+</main>
+</div>
+<noscript>Activa JavaScript para ejecutar esta simulación.</noscript>
+</body></html>

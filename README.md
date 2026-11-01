@@ -1,7 +1,16 @@
 # Laboratorio-I-Induccion
 Experimento de inducción electromagnética mediante una espira móvil y bobinas de Helmholtz
 
-Simulación interactiva sencilla (riel de 150 cm y comparación con el Hameg HM 203-7):
+Versión web con animación en Canvas, bobinas **a los costados del riel**, campo
+suave de Biot–Savart y vista de escalas del Hameg: abrir
+[simulacion_web/dist/index.html](simulacion_web/dist/index.html) en el navegador.
+Funciona sin instalación ni conexión a internet. Véanse
+[las instrucciones y supuestos](simulacion_web/README.md).
+
+[Abrir la versión web publicada (acceso privado)](https://induccion-espira-laboratorio.candycurl2.chatgpt.site).
+
+Versión anterior en Matplotlib, con campo uniforme de bordes definidos y una
+geometría distinta (conservada como referencia):
 
 ```bash
 python simulacion_induccion.py
