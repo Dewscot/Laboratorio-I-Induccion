@@ -1,13 +1,20 @@
 # Laboratorio-I-Induccion
 Experimento de inducción electromagnética mediante una espira móvil y bobinas de Helmholtz
 
+[Bitácora única de trabajo](BITACORA_UNICA.md): modelo, simulador web,
+osciloscopio, decisiones, mediciones y pendientes. Actualizar este documento
+conforme avance el experimento. Es la única bitácora activa; los registros anteriores
+se conservan en [un respaldo histórico ZIP](documentos/archivo/antecedentes_2026-11-03.zip).
+
 Versión web con animación en Canvas, bobinas **a los costados del riel**, campo
-suave de Biot–Savart y vista de escalas del Hameg: abrir
+suave de Biot–Savart, captadora circular de radio y vueltas ajustables
+(inicialmente 4 cm y 50 vueltas) y vista de escalas del Hameg: abrir
 [simulacion_web/dist/index.html](simulacion_web/dist/index.html) en el navegador.
 Funciona sin instalación ni conexión a internet. Véanse
 [las instrucciones y supuestos](simulacion_web/README.md).
 
-[Abrir la versión web publicada (acceso privado)](https://induccion-espira-laboratorio.candycurl2.chatgpt.site).
+[Versión web publicada (acceso privado)](https://induccion-espira-laboratorio.candycurl2.chatgpt.site):
+versión anterior; la adaptación circular del 03-11 está disponible localmente.
 
 Versión anterior en Matplotlib, con campo uniforme de bordes definidos y una
 geometría distinta (conservada como referencia):

@@ -13,20 +13,32 @@ Luego visitar `http://localhost:8000`.
 
 ## Geometría utilizada
 
-Esta versión usa el montaje de **`Simulacion 2/simulacion_induccion_helmholtz.py`**:
-dos bobinas **a los costados del riel**, eje transversal y captadora rectangular
-vertical en el plano longitudinal del riel. Se presupone que la trayectoria
-permanece en el plano medio y que el riel gira alrededor del centro de las bobinas.
-La captadora rota dentro de ese plano, manteniendo su normal alineada con el campo.
+Esta versión conserva el campo lateral de `Simulacion 2`, con dos bobinas
+fijas a los costados del riel, y usa una **captadora circular** vertical en el
+plano longitudinal. La trayectoria permanece en el plano medio y el riel gira
+alrededor del centro de las bobinas. La normal de la captadora es transversal;
+no se aplica un factor adicional `cos(theta)`.
 
-Por ello no se aplica el factor `cos(theta)` del modelo inicial
-`simulacion_induccion.py`. El campo se obtiene de Biot–Savart para anillos circulares;
-su perfil es suave. Se calcula el flujo sobre el área finita con cuadratura de
-Gauss de 7×7 puntos. El campo central B₀, dimensiones y resistencias iniciales son
-ejemplos ajustables. El modelo no incluye ruido, pérdidas mecánicas ni inductancia.
-Para bobinas muy próximas y espiras grandes, la cuadratura fija puede requerir
-refinamiento: la coincidencia con Python valida la traducción, no la convergencia
-para todas las geometrías admitidas.
+Los controles **Número de vueltas** y **Radio de la captadora** permiten probar
+otras bobinas. Valores iniciales: **50 vueltas y radio de 4 cm**, estimados por
+el usuario para la captadora provisional; el radio es medio, no el diámetro.
+Admite radios de 0,1 a 40 cm y números enteros positivos de vueltas.
+El dibujo, el área indicada, las señales y el CSV usan esos mismos parámetros.
+
+El modelo aproxima el bobinado compacto como N vueltas coincidentes, sin núcleo,
+de área `πr²`. El flujo por vuelta integra el campo sobre el disco encerrado
+(aunque el centro esté vacío), con cuadratura polar de 24 nodos radiales y
+96 posiciones angulares. Faraday usa `fem = -N (dΦ/ds) v`. El campo se obtiene
+por Biot–Savart y se normaliza al B₀ introducido. Un radio mayor puede cambiar
+la forma de los pulsos, además de su amplitud.
+
+El campo, las resistencias y las dimensiones de las bobinas grandes siguen
+siendo ejemplos: deben medirse para comparar amplitudes experimentales. Al
+cambiar de captadora hay que actualizar su resistencia propia. Se omiten
+espesor del bobinado, ruido, pérdidas mecánicas e inductancia. Geometrías con
+bobinas muy próximas y captadoras grandes pueden necesitar refinamiento de la
+cuadratura; la verificación cubre los casos indicados en el script, no todas
+las combinaciones posibles.
 
 ## Uso
 
@@ -65,6 +77,9 @@ móvil. La publicación privada usa Sites, con identidad en `.openai/hosting.jso
 python3 simulacion_web/verificar_modelo.py
 ```
 
-El contraste ejecuta Node.js y NumPy sobre ocho casos y 17 magnitudes, incluyendo
-las series completas, campo y ángulo nulos, sonda ×10 y cambios de geometría.
-La tolerancia es `rtol=2e-8`, `atol=1e-11`.
+El contraste ejecuta Node.js y NumPy. Compara flujo y gradiente espacial con
+una integración independiente por franjas cartesianas sobre el disco y un
+campo de Biot–Savart más fino. Incluye la captadora provisional, radios mayores,
+el radio mínimo, bobinas pequeñas, proporcionalidad con las vueltas, dependencia
+angular, campo/ángulo nulos y entradas inválidas. Tolerancias normalizadas por
+el máximo de cada perfil: 0,03 % para flujo y 0,5 % para gradiente.

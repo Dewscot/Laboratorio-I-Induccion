@@ -1,9 +1,9 @@
-/* Modelo de Simulacion 2/simulacion_induccion_helmholtz.py, en unidades SI.
+/* Modelo lateral con captadora circular de vueltas coincidentes, en unidades SI.
  * La fábrica autocontenida permite ejecutarlo en un Worker incluso desde file://.
  */
 function createPhysics() {
   const defaults = Object.freeze({angulo:10, campo_mT:1, radio_cm:15, separacion_cm:15,
-    vueltas:10, ancho_cm:10, largo_cm:10, resistencia:1, carga:1000, sonda:1});
+    vueltas:50, radio_captadora_cm:4, resistencia:1, carga:1000, sonda:1});
   const G=9.81, L=1.5, C=.75;
   const radialCache=new Map(), fluxCache=new Map();
   function validate(p) {
@@ -12,7 +12,7 @@ function createPhysics() {
     if(p.campo_mT<0 || p.resistencia<0 || p.carga<=0) throw Error('Campo y resistencia propia ≥ 0; carga > 0.');
     if(p.radio_cm<2 || p.radio_cm>80 || p.separacion_cm<2 || p.separacion_cm>100) throw Error('Radio: 2–80 cm. Separación: 2–100 cm.');
     if(!Number.isInteger(p.vueltas) || p.vueltas<1) throw Error('Las vueltas deben ser un entero positivo.');
-    if(Math.min(p.ancho_cm,p.largo_cm)<=0 || Math.max(p.ancho_cm,p.largo_cm)>80) throw Error('Las dimensiones de la espira deben ser mayores que 0 y de hasta 80 cm.');
+    if(p.radio_captadora_cm<0.1 || p.radio_captadora_cm>40) throw Error('El radio de la captadora debe estar entre 0,1 y 40 cm.');
     if(![1,10].includes(p.sonda)) throw Error('La sonda debe ser ×1 o ×10.');
   }
   function cache(map,key,value,limit=8) {
@@ -41,21 +41,35 @@ function createPhysics() {
     b[0]=1;
     return cache(radialCache,key,b);
   }
+  // Gauss–Legendre radial y promedio angular: dS = r dr dφ.
+  function diskQuadrature(radius) {
+    const points=[], order=24, angles=96;
+    for(let i=0;i<order;i++) {
+      let z=Math.cos(Math.PI*(i+.75)/(order+.5)), derivative;
+      for(let iter=0;iter<30;iter++) {
+        let prev=1, current=z;
+        for(let j=2;j<=order;j++) {const next=((2*j-1)*z*current-(j-1)*prev)/j;prev=current;current=next;}
+        derivative=order*(z*current-prev)/(z*z-1);
+        const step=current/derivative; z-=step;
+        if(Math.abs(step)<1e-14) break;
+      }
+      const r=radius*(z+1)/2, weight=2/((1-z*z)*derivative*derivative);
+      for(let j=0;j<angles;j++) {
+        const angle=2*Math.PI*(j+.5)/angles;
+        points.push([r*Math.cos(angle),r*Math.sin(angle),weight*radius/2*r*2*Math.PI/angles]);
+      }
+    }
+    return points;
+  }
   function fluxTable(p) {
-    const key=[p.radio_cm,p.separacion_cm,p.ancho_cm,p.largo_cm].join(',');
+    const key=[p.radio_cm,p.separacion_cm,p.radio_captadora_cm].join(',');
     if(fluxCache.has(key)) return fluxCache.get(key);
-    const b=radial(p);
-    const nodes=[-.9491079123427585,-.7415311855993945,-.4058451513773972,0,.4058451513773972,.7415311855993945,.9491079123427585];
-    const weights=[.1294849661688697,.2797053914892766,.3818300505051189,.4179591836734694,.3818300505051189,.2797053914892766,.1294849661688697];
-    const length=p.largo_cm/100, width=p.ancho_cm/100;
+    const b=radial(p), points=diskQuadrature(p.radio_captadora_cm/100);
     const flux=new Float64Array(3801), der=new Float64Array(3801);
     for(let k=0;k<flux.length;k++) {
       const x=-.2+k*.0005-C; let sum=0;
-      for(let i=0;i<7;i++) for(let j=0;j<7;j++) {
-        const rho=Math.hypot(x+nodes[i]*length/2,nodes[j]*width/2);
-        sum+=weights[i]*weights[j]*interp(b,rho,0,.0005)/4;
-      }
-      flux[k]=length*width*sum; // por tesla de campo central
+      for(const [u,v,weight] of points) sum+=weight*interp(b,Math.hypot(x+u,v),0,.0005);
+      flux[k]=sum; // flujo por vuelta y por tesla de campo central
     }
     for(let k=1;k<flux.length-1;k++) der[k]=(flux[k+1]-flux[k-1])/.001;
     der[0]=(-3*flux[0]+4*flux[1]-flux[2])/.001;

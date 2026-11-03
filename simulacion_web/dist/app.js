@@ -66,6 +66,7 @@
     $('divisions').innerHTML=fmt(data.div_expandido)+'<em>div</em>';
     $('division-note').textContent=`Sonda ×${params.sonda} · 1 mV/div con Y×5`;
     $('helmholtz-note').textContent=params.radio_cm===params.separacion_cm?'D = R · configuración de Helmholtz':'D ≠ R · par de bobinas circulares';
+    $('captadora-note').textContent=`Diámetro: ${fmt(2*params.radio_captadora_cm)} cm · área por vuelta: ${fmt(Math.PI*params.radio_captadora_cm**2)} cm².`;
     $('compute-status').textContent=`Actualizado · ${Math.round(message.ms)} ms${failedWorker?' · modo compatible':''}`;
     updatePositionUI(); buildScene(); buildPlot();
     dirty=true; requestFrame();
@@ -104,7 +105,7 @@
     for(const side of [-1,1]) for(let i=0;i<64;i++) bounds.push([R*Math.cos(i*Math.PI/32),side*D/2,R*Math.sin(i*Math.PI/32)]);
     const e=[Math.cos(theta),0,-Math.sin(theta)], n=[Math.sin(theta),0,Math.cos(theta)];
     for(const end of [-.75,.75]) for(const u of [-1,1]) for(const v of [-1,1]) {
-      bounds.push(e.map((v0,k)=>(end+u*params.largo_cm/200)*v0+v*params.ancho_cm/200*n[k]));
+      bounds.push(e.map((v0,k)=>(end+u*params.radio_captadora_cm/100)*v0+v*params.radio_captadora_cm/100*n[k]));
     }
     const coords=bounds.map(raw), xs=coords.map(p=>p[0]), ys=coords.map(p=>p[1]);
     const minX=Math.min(...xs),maxX=Math.max(...xs), minY=Math.min(...ys),maxY=Math.max(...ys);
@@ -154,9 +155,12 @@
     ctx.setTransform(ratio,0,0,ratio,0,0);
     const s=.5*data.a*currentTime**2, center=s-.75;
     const loop=[];
-    for(const [u,v] of [[-1,-1],[1,-1],[1,1],[-1,1]]) loop.push(project(e.map((v0,k)=>(center+u*params.largo_cm/200)*v0+v*params.ancho_cm/200*n[k])));
+    for(let i=0;i<96;i++) {
+      const angle=2*Math.PI*i/96, r=params.radio_captadora_cm/100;
+      loop.push(project(e.map((v0,k)=>(center+r*Math.cos(angle))*v0+r*Math.sin(angle)*n[k])));
+    }
     ctx.beginPath(); loop.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath();
-    ctx.fillStyle='#d9a16516';ctx.fill();ctx.strokeStyle='#edb071';ctx.lineWidth=2.7;ctx.stroke();
+    ctx.strokeStyle='#edb071';ctx.lineWidth=2.7;ctx.stroke();
     const c=project(e.map(v=>center*v));
     ctx.beginPath();ctx.arc(c[0],c[1],3.8,0,2*Math.PI);ctx.fillStyle='#f0c290';ctx.fill();
     ctx.textAlign='right';ctx.font='10px ui-monospace,monospace';ctx.fillStyle='#c3d8c6';
@@ -294,12 +298,12 @@
     if(!data)return;
     const keys=['t','s','v','campo','flujo','dflujo_ds','fem','voltaje','corriente','entrada_BNC'];
     const rows=['# SIMULACIÓN IDEAL; no son mediciones experimentales',
-      '# Geometría: bobinas laterales; espira vertical longitudinal; riel centrado',
+      '# Geometría: bobinas laterales; captadora circular vertical longitudinal; N vueltas coincidentes; radio_captadora_cm en cm; riel centrado',
       '# Parámetros: '+JSON.stringify(params),
       't_s,s_m,v_m_s,B_transversal_T,flujo_por_vuelta_Wb,dPhi_ds_Wb_m,fem_V,voltaje_carga_V,corriente_A,entrada_BNC_V'];
     for(let i=0;i<data.t.length;i++) rows.push(keys.map(k=>data[k][i].toPrecision(12)).join(','));
     const url=URL.createObjectURL(new Blob([rows.join('\n')+'\n'],{type:'text/csv;charset=utf-8'}));
-    const link=document.createElement('a');link.href=url;link.download=`induccion_lateral_${params.angulo}grados_${params.vueltas}vueltas.csv`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    const link=document.createElement('a');link.href=url;link.download=`induccion_lateral_${params.angulo}grados_${params.vueltas}vueltas_r${params.radio_captadora_cm}cm.csv`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
   };
   new ResizeObserver(()=>{if(data){buildScene();buildPlot();dirty=true;requestFrame();}}).observe(document.querySelector('main'));
   document.addEventListener('visibilitychange',()=>{lastFrame=null;});
