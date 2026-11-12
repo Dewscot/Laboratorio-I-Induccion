@@ -1,6 +1,6 @@
 # Bitácora única — Experimento de inducción en plano inclinado
 
-**Creación:** 1 de noviembre de 2026. **Última actualización:** 3 de noviembre de 2026.  
+**Creación:** 1 de noviembre de 2026. **Última actualización:** 4 de noviembre de 2026.  
 **Documento de trabajo:** desde esta fecha concentra las decisiones, el modelo, la instrumentación, los resultados y los pendientes. Se actualizará conforme avance el experimento.
 
 ## 1. Procedencia y forma de actualizar
@@ -37,7 +37,7 @@ El experimento estudia la relación entre inclinación del riel, velocidad del c
 
 El marco teórico original planteaba estudiar corriente inducida. La propuesta de `main.pdf`, leída el 03-11, toma como observable el máximo absoluto del voltaje respecto de la línea base: **U_pk = max |V(t) − V₀|**. Se propone compararlo con √sen θ y, si se mide la rapidez por vídeo, también con v. **El osciloscopio mide voltaje entre sus terminales**: para informar corriente se debe especificar la resistencia o el método de conversión. Falta concretar el circuito real y confirmar el protocolo de medición.
 
-Hasta lo documentado en las fuentes, no se ha aportado una señal experimental ni se ha confirmado la aplicación de los ajustes al osciloscopio. Los resultados del simulador son predicciones. Las verificaciones de software del 03-11 se detallan en el historial; no equivalen a una validación experimental.
+El 04-11 el usuario informó que, en el último laboratorio, el voltaje era demasiado pequeño para distinguirlo claramente del ruido y las interferencias. No se aportaron trazas, amplitudes, duración del pulso ni ajustes confirmados del osciloscopio. Los resultados del simulador son predicciones. Las verificaciones de software del 03-11 se detallan en el historial; no equivalen a una validación experimental.
 
 ## 3. Montaje y geometría de referencia
 
@@ -245,6 +245,7 @@ El **modelo circular del 03-11** pasó seis casos con una referencia independien
 - [ ] Añadir al simulador conexión directa sin resistencia externa.
 - [ ] Reemplazar parámetros de ejemplo por los del aparato: B₀, dimensiones y separación de bobinas, vueltas, área y R propia de la captadora, carga y sonda.
 - [ ] Medir ruido y línea base; registrar una pasada y ajustar escalas y disparo.
+- [ ] Probar un filtro RC pasabajos, registrar R y C, y comprobar que no distorsione el voltaje pico, especialmente a la mayor inclinación.
 - [ ] Registrar repeticiones por ángulo con condiciones de liberación constantes e incertidumbres.
 - [ ] Comparar señal real con predicción y revisar pérdidas mecánicas o respuesta eléctrica si hace falta.
 - [ ] Si se retoma la alternativa de la galletera, caracterizar su bobina fija (no confundir con el rotor o inducido). Actualmente se trabaja con la captadora circular provisional; no se ha adoptado la alternativa de motor.
@@ -351,3 +352,96 @@ comparar pulsos no equivale a medir campo en teslas; esto último requiere
 caracterización o calibración. Un núcleo de hierro modificaría el campo y la
 respuesta y no está representado en el modelo actual. No se identificó la
 captadora circular fotografiada como esa bobina de motor.
+
+
+### 04-11-2026 — Señal débil, interferencias y propuesta de filtro pasabajos
+
+**Observación comunicada por el usuario:** en el último laboratorio el voltaje
+fue tan bajo que no pudo medirse claramente con el osciloscopio, debido a señales
+parásitas atribuidas a los cables de la captadora y a fuentes externas. No se
+aportaron valores de amplitud, fotografías, trazas ni frecuencia medida del ruido.
+La descripción de señal útil del orden de Hz y ruido del orden de MHz es una
+hipótesis de trabajo, no una caracterización espectral confirmada.
+
+El profesor recomendó usar un capacitor como filtro. El usuario confirmó que
+disponen de resistencias y capacitores variables; no indicó sus rangos ni los
+valores utilizados. No se confirmó todavía el montaje o ensayo de un filtro.
+
+**Recomendación discutida:** probar un filtro RC pasabajos, con una resistencia
+en serie entre el terminal A de la captadora y CH I, y un capacitor entre la
+entrada CH I y el terminal B, conectado a la masa de CH I. El osciloscopio mide
+sobre el capacitor. Instalarlo cerca de la entrada, con conexiones cortas.
+La frecuencia de corte aproximada es `fc = 1/(2πRC)`, suponiendo resistencia
+propia de la captadora pequeña frente a R, entrada del instrumento mucho mayor
+que R y efectos inductivos despreciables en la banda útil. El filtro atenúa
+componentes rápidas; no amplifica la señal.
+
+Valores propuestos para explorar, no componentes ya adoptados ni resultados:
+
+| R | C | Corte aproximado |
+| --- | --- | --- |
+| 10 kΩ | 100 nF | 159 Hz |
+| 10 kΩ | 330 nF | 48 Hz |
+| 10 kΩ | 1 µF | 16 Hz |
+
+Se propuso empezar con 10 kΩ y 100 nF y aumentar C gradualmente si hace falta.
+Usar un capacitor no polarizado para la señal bipolar. Un capacitor solo en
+paralelo también modifica la respuesta, pero el filtrado depende de la resistencia
+e inductancia de la captadora y puede presentar resonancia; no se dimensionó
+esa alternativa. La inductancia y capacitancia no están incluidas en el simulador
+actual, por lo que este no predice todavía la señal con filtro.
+
+**Aclaración sobre escalas:** los milivoltios determinan la elección de VOLTS/DIV,
+no TIME/DIV. La escala temporal depende de la duración del pulso. Se reiteraron
+como inicio 5 mV/div, o 1 mV/div efectivo con Y×5, acoplamiento DC y 50 ms/div,
+ajustando el tiempo hasta observar el pulso completo. El usuario no confirmó
+el TIME/DIV realmente usado.
+
+**Comprobaciones propuestas:**
+
+- Trenzar juntos los dos cables de salida y reducir las áreas de los lazos y
+  las conexiones de masa para disminuir captación de interferencias.
+- Registrar línea base con el carrito quieto y comparar pasadas con y sin filtro,
+  manteniendo ángulo y posición de liberación.
+- Comprobar que al aumentar C no disminuya apreciablemente el pico ni se ensanche
+  el pulso. La frecuencia de repetición de las pasadas no determina por sí sola
+  el ancho de banda necesario para conservar su forma.
+- Revisar especialmente la mayor inclinación, donde el pulso esperado es más
+  breve. Una atenuación distinta según el ángulo sesgaría la comparación de U_pk.
+- Una vez elegido el filtro, mantener R y C constantes entre ángulos y registrar
+  sus valores. Comparar alturas requiere repeticiones, pues puede variar la pasada.
+- Verificar la frecuencia del ruido: el corte de 159 Hz atenúa poco una posible
+  interferencia de red de 50 Hz. No se identificó todavía su contribución.
+
+Referencias consultadas durante la conversación:
+[Analog Devices, filtro pasabajos y frecuencia de corte](https://www.analog.com/en/resources/technical-articles/a-beginners-guide-to-filter-topologies.html)
+y [Tektronix, captación de ruido y conexiones de sondas](https://www.tek.com/en/documents/whitepaper/abcs-probes-primer).
+
+Queda pendiente medir la duración y amplitud del pulso, caracterizar el ruido,
+conocer los rangos de componentes disponibles y ensayar el filtro. No se informó
+una señal recuperada ni una mejora experimental confirmada.
+
+### 04-11-2026 — Lecturas recomendadas y cierre de la sesión
+
+Se recomendaron las siguientes lecturas, en este orden, para comprender el
+filtro RC pasabajos antes de ensayarlo:
+
+1. [Electrónica básica, unidad 3 — Universidad Abierta y a Distancia de México](https://dmd.unadmexico.mx/contenidos/DCEIT/BLOQUE2/TM/03/KELB/U3/descargables/KELB_U3_Contenido.pdf).
+   En español; buscar «Filtro pasa bajo RC» dentro del PDF. Introducción al
+   circuito y a las frecuencias que deja pasar.
+2. [An Introduction to Electrical Filters — Analog Devices](https://wiki.analog.com/university/courses/engineering_discovery/lab_5).
+   En inglés, con enfoque experimental: construcción y observación de filtros RC.
+3. [A Beginner’s Guide to Filter Topologies — Analog Devices](https://www.analog.com/en/resources/technical-articles/a-beginners-guide-to-filter-topologies.html).
+   Leer primero la introducción y el filtro pasabajos de un polo; dejar las
+   configuraciones avanzadas para después.
+
+Conceptos para orientar la lectura: reactancia capacitiva
+`X_C = 1/(2πfC)`, salida tomada sobre el capacitor, constante de tiempo
+`τ = RC`, frecuencia de corte `fc = 1/(2πRC)` y efecto del filtro sobre la
+altura y duración de un pulso. La transición es gradual: interesa reducir el
+ruido sin alterar apreciablemente el pico útil que se comparará entre ángulos.
+
+El usuario dio por terminada la sesión por hoy. Las lecturas quedan recomendadas,
+sin confirmación de haberlas realizado. Al retomar, siguen pendientes la
+caracterización de señal y ruido y el ensayo del filtro descrito arriba; no se
+registraron nuevas mediciones ni pruebas del montaje.
