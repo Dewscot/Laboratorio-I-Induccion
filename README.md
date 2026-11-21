@@ -25,6 +25,30 @@ python simulacion_induccion.py
 
 Instrucciones, aproximaciones y ejemplos en [SIMULACION.md](SIMULACION.md).
 
+## Informe y análisis experimental
+
+### Cambios de esta versión
+
+- El informe incorpora el montaje, el procedimiento, las tablas de resultados y
+  la discusión de los residuos. Las tablas se editan en el mismo archivo.
+  [Informe en LaTeX](main.tex).
+- Los dos TXT guardan el ángulo en grados y el voltaje en mV, con una fila por
+  pasada. Para 5° a 9° se usaron `Rep1.1` y `Rep2.1`, tomadas después de
+  recentrar el riel. De 10° a 15° se usaron `Rep1` y `Rep2`.
+  [Picos positivos](analisis/picos_positivos.txt) · [Picos negativos](analisis/picos_negativos.txt).
+- El script lee los TXT con `np.genfromtxt`, promedia las pasadas por ángulo y
+  compara tres modelos con `curve_fit`.
+  [Script](analisis/analisis_induccion.py) · [Ajustes](figuras/ajustes.pdf) · [Residuos](figuras/residuos.pdf).
+
+Para regenerar los gráficos, ejecuten este comando desde la raíz del repositorio.
+
+    python analisis/analisis_induccion.py
+
+Si cambian los TXT, revisen también las tablas y los valores comentados en
+`main.tex`. [Instrucciones del análisis](analisis/LEEME.txt).
+Queda por completar la portada y cuantificar la incertidumbre instrumental del
+osciloscopio.
+
 ## Compilación de documentos LaTeX
 
 ### VS Code y LaTeX Workshop (recomendado)

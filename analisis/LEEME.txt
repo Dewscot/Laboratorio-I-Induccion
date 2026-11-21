@@ -1,0 +1,20 @@
+Análisis de inducción
+
+Los archivos picos_positivos.txt y picos_negativos.txt tienen dos columnas:
+ángulo en grados y pico de voltaje en milivoltios. Hay una fila por pasada.
+Para 5° a 9° se usaron Rep1.1 y Rep2.1, tomadas después de recentrar el riel.
+De 10° a 15° se usaron Rep1 y Rep2. Los picos negativos conservan su signo.
+
+Desde la raíz del proyecto, con NumPy, SciPy y Matplotlib instalados:
+
+    python analisis/analisis_induccion.py
+
+El script lee los TXT con np.genfromtxt, promedia las pasadas por ángulo y
+calcula tres ajustes con curve_fit. Muestra los parámetros y el RMSE en la
+consola y actualiza figuras/ajustes.pdf y figuras/residuos.pdf. Las dos tablas
+están escritas en main.tex. Si cambias los datos, revisa también las tablas,
+el resumen y los valores mencionados en la discusión antes de recompilar.
+
+Para el informe abre main.tex. En el repositorio, la receta LaTeX Workshop
+ya configurada compila ese archivo al guardar. También puedes ejecutar
+latexmk -pdf main.tex desde la raíz.

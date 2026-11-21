@@ -1,0 +1,26 @@
+# mínimo negativo respecto de la línea base de Math1 (RIGOL DHO804).
+# 5 a 9 grados: Rep1.1 y Rep2.1 tras recentrar; demás ángulos: Rep1 y Rep2.
+# Dos filas por ángulo, en orden de repetición (1 y 2).
+# angulo_deg voltaje_mV
+5 -3.011729
+5 -2.92822
+6 -3.277597
+6 -3.113386
+7 -3.519848
+7 -3.413732
+8 -3.654598
+8 -3.50565
+9 -4.123745
+9 -3.614646
+10 -3.756775
+10 -3.766857
+11 -3.75989
+11 -4.180008
+12.5 -3.949468
+12.5 -4.024007
+13 -4.589873
+13 -4.357909
+14 -4.557887
+14 -5.149941
+15 -4.408163
+15 -4.484669

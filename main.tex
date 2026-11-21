@@ -1,215 +1,217 @@
 \documentclass[10pt,letterpaper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[provide=*,spanish]{babel}
-\usepackage{lmodern,geometry,amsmath,amssymb,graphicx,xcolor,microtype,multicol}
-\usepackage{caption,fancyhdr,enumitem,booktabs,tabularx,array}
-\usepackage[american]{circuitikz}
-\usepackage{siunitx,hyperref,titlesec}
-\usetikzlibrary{arrows.meta,calc}
-\geometry{top=1.6cm,bottom=1.65cm,left=1.75cm,right=1.75cm,headheight=14pt}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{lmodern,geometry,amsmath,graphicx,xcolor,microtype,multicol}
+\usepackage{caption,fancyhdr,booktabs,siunitx,titlesec,hyperref}
+\geometry{top=1.70cm,bottom=1.65cm,left=1.75cm,right=1.75cm,headheight=14pt}
 \setlength{\columnsep}{0.65cm}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{0.18em}
-\titlespacing*{\section}{0pt}{1.15ex plus .5ex minus .2ex}{0.55ex}
-\titlespacing*{\subsection}{0pt}{0.9ex plus .35ex minus .2ex}{0.4ex}
-\setlist{nosep,leftmargin=*}
-\sisetup{output-decimal-marker={,},group-separator={\,},per-mode=symbol}
-\captionsetup{font=small,labelfont=bf,justification=centering,skip=4pt,hypcap=false}
+\setlength{\parskip}{0.38em}
+\titlespacing*{\section}{0pt}{1.45ex}{0.58ex}
+\titlespacing*{\subsection}{0pt}{1.15ex}{0.45ex}
+\sisetup{output-decimal-marker={,},per-mode=symbol,uncertainty-mode=separate}
+\captionsetup{font=small,labelfont=bf,skip=5pt,hypcap=false}
 \definecolor{udecazul}{HTML}{003A70}
 \definecolor{udecoro}{HTML}{C79A2B}
 \addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
-
-% Completar los datos del grupo antes de presentar.
-\newcommand{\asignatura}{Laboratorio I}
-\newcommand{\laboratorio}{Propuesta de experimento}
-\newcommand{\tituloinforme}{Inducción electromagnética de una espira móvil sobre un plano inclinado}
-\newcommand{\autores}{\textit{[Integrantes del grupo]}}
-\newcommand{\procedencia}{Departamento de Física, Universidad de Concepción, Chile}
-\newcommand{\docente}{\textit{[Por completar]}}
-\newcommand{\seccion}{\textit{[Sección por completar]}}
-\newcommand{\fechaentrega}{\textit{[Fecha por completar]}}
 \hypersetup{colorlinks=true,linkcolor=udecazul,citecolor=udecazul,urlcolor=udecazul,
- pdftitle={Inducción electromagnética con un carrito sobre plano inclinado},
- pdfauthor={Grupo de Laboratorio I}}
+ pdftitle={Inducción electromagnética de una espira móvil sobre un plano inclinado}}
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{\small \laboratorio: Inducción electromagnética}
-\rhead{\small \asignatura}
-\cfoot{\small \thepage}
-\renewcommand{\headrulewidth}{0.4pt}
-\fancypagestyle{plain}{\fancyhf{}\lhead{\small \laboratorio: Inducción electromagnética}\rhead{\small \asignatura}\cfoot{\small \thepage}}
+\lhead{\small Inducción electromagnética}
+\rhead{\small Laboratorio I}
+\cfoot{\small\thepage}
+
+% Completar los datos del grupo. Las tablas se editan en este archivo.
+\newcommand{\autores}{Julio Bastías, \textit{[integrantes del grupo]}}
+\newcommand{\docente}{\textit{[docente]}}
+\newcommand{\seccion}{\textit{[sección]}}
+\newcommand{\fechaentrega}{\textit{[fecha de entrega]}}
 
 \begin{document}
 \thispagestyle{empty}
 \begin{center}
   \begin{minipage}{0.46\textwidth}
-    \raggedright
-    \includegraphics[width=0.68\linewidth]{figuras/logo_udec.png}
+    \raggedright\includegraphics[width=0.63\linewidth]{figuras/logo_udec.png}
   \end{minipage}
   \begin{minipage}{0.46\textwidth}
-    \raggedleft
-    \includegraphics[width=0.68\linewidth]{figuras/logo_fcfm.png}
+    \raggedleft\includegraphics[width=0.63\linewidth]{figuras/logo_fcfm.png}
   \end{minipage}
-  {\color{udecoro}\rule{0.82\textwidth}{1.2pt}\par}
-  \vspace{0.10cm}
-  {\Large\bfseries \asignatura\par}
-  \vspace{0.12cm}
-  {\large\bfseries\color{udecazul} \laboratorio\par}
-  \vspace{0.10cm}
-  {\Large\bfseries\color{udecazul} \tituloinforme\par}
+
+  {\color{udecoro}\rule{0.91\textwidth}{1.0pt}\par}
+  \vspace{0.13cm}
+  {\large\bfseries Laboratorio I\par}
   \vspace{0.09cm}
-  {\normalsize Objetivo, modelo físico y método de medición\par}
-  \vspace{0.11cm}
-  {\small \autores\par}
-  {\footnotesize\itshape \procedencia\par}
-  \vspace{0.05cm}
-  {\small Docente: \docente\par}
-  {\small \seccion \quad $\vert$ \quad \fechaentrega\par}
+  {\LARGE\bfseries\color{udecazul} Inducción electromagnética de una espira móvil sobre un plano inclinado\par}
+  \vspace{0.10cm}
+  {\normalsize \autores\par}
+  {\small\itshape Departamento de Física, Universidad de Concepción, Chile\par}
+  {\small Docente \docente\quad $\vert$\quad Sección \seccion\quad $\vert$\quad \fechaentrega\par}
 \end{center}
 
 \begin{abstract}
-Se propone estudiar la tensión inducida en una espira conductora transportada por un carrito que desciende sobre un riel inclinado. Dos bobinas de Helmholtz alimentadas con corriente continua producen un campo magnético externo, y un osciloscopio registra la señal eléctrica durante el movimiento. La variable independiente será el ángulo del riel y la dependiente, la amplitud del voltaje inducido. El modelo combina la dinámica del plano inclinado y la ley de Faraday--Lenz, considerando que la orientación de la espira y el perfil espacial del campo influyen en la señal.
+Se registró la tensión de una espira montada en un carrito al pasar entre dos bobinas de Helmholtz. Se varió la inclinación del riel entre \ang{5} y \ang{15} y se midieron los picos positivo y negativo en dos pasadas por ángulo. Entre ambos extremos del intervalo, el pico positivo pasó de \qty{4.22}{\milli\volt} a \qty{6.17}{\milli\volt} y la magnitud del negativo de \qty{2.97}{\milli\volt} a \qty{4.45}{\milli\volt}. La proporcionalidad con $\sqrt{\sin\theta}$ describe el crecimiento general. Los residuos muestran una diferencia entre tramos que coincide con el cambio de serie de medición, lo que limita el contraste cuantitativo del modelo.
+
+\textbf{Palabras clave}\enspace ley de Faraday--Lenz, bobinas de Helmholtz, plano inclinado, residuos.
 \end{abstract}
 
 \begin{multicols}{2}
 \raggedcolumns
-
 \section{Introducción}
-
-Una variación del flujo magnético a través de una espira conductora origina una fuerza electromotriz inducida, según la ley de Faraday--Lenz. En esta experiencia se busca producir dicha variación desplazando una espira sobre un carrito a través del campo magnético generado por un par de bobinas de Helmholtz. Al modificar la inclinación del riel cambia la rapidez del carrito y, con ello, la rapidez de variación del flujo. Se pretende contrastar esta relación mediante la amplitud de la tensión registrada con un osciloscopio.
-
-\section{Objetivo y variables}
-
-\textbf{Objetivo.} Estudiar cómo cambia la amplitud de la tensión inducida cuando se modifica el ángulo de inclinación del riel, manteniendo constante la distancia de liberación y, en lo posible, las condiciones magnéticas y eléctricas.
-
-\textbf{Variable independiente:} ángulo de inclinación $\theta$ del riel.
-
-\textbf{Variable dependiente:} amplitud máxima $U_{\mathrm{pk}}$ de la tensión inducida, medida respecto de la línea base del osciloscopio.
-
-\textbf{Variables de control:} distancia de liberación $d$, corriente $I_H$ de Helmholtz, número de vueltas $N_e$ y dimensiones de la espira, resistencia de carga y forma de soltar el carrito. Se procurará mantener su orientación respecto del campo y una trayectoria comparable entre ensayos.
+Se estudió cómo cambia la tensión inducida al variar la inclinación de un riel por el que desciende un carrito con una espira. La variable independiente fue el ángulo $\theta$. Las variables dependientes fueron el máximo positivo $V_+$ y el mínimo negativo $V_-$ de la tensión respecto de la línea base del osciloscopio.
 
 \section{Marco teórico}
-
 \subsection{Movimiento del carrito}
-
-Tomando un eje paralelo al riel y positivo hacia abajo, la segunda ley de Newton, al despreciar el rozamiento y el frenado electromagnético, entrega
+Para un carrito que parte del reposo, despreciando el rozamiento y el efecto de los cables, la aceleración a lo largo del riel es $g\sin\theta$. Luego de recorrer una distancia $s$, la rapidez ideal es
 \begin{equation}
-  ma=mg\sin\theta
-  \quad\Rightarrow\quad a=g\sin\theta.
-  \label{eq:aceleracion}
-\end{equation}
-Si el carrito parte del reposo y recorre una distancia fija $d$ antes de alcanzar una zona de referencia, la cinemática de aceleración constante conduce a
-\begin{equation}
-  \boxed{v=\sqrt{2gd\sin\theta}.}
+  v(s,\theta)=\sqrt{2gs\sin\theta}.
   \label{eq:velocidad}
 \end{equation}
-Esta rapidez es una predicción ideal; el rozamiento de las ruedas y otros efectos pueden disminuirla.
-
-\subsection{Campo magnético y flujo}
-
-Las bobinas de Helmholtz son dos bobinas circulares coaxiales de radio $R_H$, separadas una distancia $R_H$, con $N_H$ vueltas por bobina y corriente $I_H$ en el mismo sentido. En el punto central producen un campo de magnitud
-\begin{equation}
- B_H(0)=\left(\frac45\right)^{3/2}
- \frac{\mu_0 N_H I_H}{R_H}.
- \label{eq:helmholtz}
-\end{equation}
-El campo es aproximadamente uniforme solo cerca del centro. En las regiones de entrada y salida su valor cambia gradualmente con la posición.
-
-El flujo magnético por una vuelta de la espira se define como
-\begin{equation}
- \boxed{\Phi_B=\int_S\vec B\cdot d\vec S.}
- \label{eq:flujo}
-\end{equation}
-Si el campo varía poco sobre el área $A$ de la espira, puede utilizarse $\Phi_B\simeq BA\cos\beta$, donde $\beta$ es el ángulo entre el campo y la \emph{normal} al plano de la espira. El movimiento induce tensión únicamente cuando cambia este flujo, no por la rapidez aislada del carrito.
+La distancia hasta el centro de las bobinas fue $d=\qty{0.60}{\metre}$. Con $g=\qty{9.81}{\metre\per\second\squared}$, la rapidez ideal en ese punto abarca de \qty{1.01}{\metre\per\second} a \qty{1.75}{\metre\per\second} para los ángulos observados.
 
 \subsection{Ley de Faraday--Lenz}
-
-Para un circuito móvil de $N_e$ vueltas que enlazan aproximadamente el mismo flujo, la fuerza electromotriz (fem) inducida cumple \cite{chi2017,serway2009}
+El flujo por vuelta se define como $\Phi_B=\int_S \vec B\cdot d\vec S$. Para $N$ vueltas que enlazan aproximadamente el mismo flujo, la fuerza electromotriz inducida es \cite{serway2009}
 \begin{equation}
- \boxed{\mathcal E=-N_e\frac{d\Phi_B}{dt}.}
- \label{eq:faraday}
+  \mathcal E=-N\frac{d\Phi_B}{dt}=-N\frac{d\Phi_B}{ds}\,v.
+  \label{eq:faraday}
 \end{equation}
-El signo negativo expresa la ley de Lenz: el sentido de la corriente inducida se opone a la variación del flujo. Puesto que el campo externo se mantiene estacionario y el flujo depende de la posición $s$ sobre el riel, la regla de la cadena permite escribir
-\begin{equation}
- \boxed{\mathcal E=-N_e\frac{d\Phi_B}{ds}\,v.}
- \label{eq:faraday_movimiento}
-\end{equation}
-Esta expresión muestra que, para un mismo gradiente espacial de flujo, la magnitud de la fem es proporcional a la rapidez. Cuando el carrito entra y sale de una región de flujo distinto, pueden aparecer pulsos de polaridad opuesta. Cerca de una zona donde el flujo apenas cambia, la fem puede ser pequeña incluso si el carrito se mueve.
+El campo fue aproximadamente uniforme cerca del centro. Los pulsos de signo opuesto se esperan al entrar y salir de la región de campo, donde el flujo aumenta y disminuye, respectivamente. En el centro, el cambio de flujo puede ser pequeño aun con el carrito en movimiento.
 
-\subsection{Tensión registrada y predicción}
+\columnbreak
 
-Se considera una espira con resistencia propia $r_e$ y una resistencia de carga $R_L$. Si la respuesta del circuito es aproximadamente resistiva y la impedancia del osciloscopio es mucho mayor que $R_L$, la tensión medida en esta última es
+\subsection{Predicción para los picos}
+Si el perfil de flujo a lo largo del riel es comparable entre pasadas, las ecuaciones \eqref{eq:velocidad} y \eqref{eq:faraday} dan una dependencia $\mathcal E(s,\theta)\propto\sqrt{\sin\theta}$ a cada posición $s$. Si el circuito y el filtrado afectan de forma semejante a todas las pasadas, se espera
 \begin{equation}
- V_R(t)\simeq\frac{R_L}{r_e+R_L}\,\mathcal E(t).
- \label{eq:voltaje}
+  U_\pm(\theta)=A_\pm\sqrt{\sin\theta},
+  \label{eq:modelo}
 \end{equation}
-Para comparar ensayos se utilizará el máximo absoluto de la señal tras restar su línea base $V_0$:
-\begin{equation}
- U_{\mathrm{pk}}=\max_t|V_R(t)-V_0|.
- \label{eq:pico}
-\end{equation}
-Si entre mediciones se mantiene aproximadamente constante el gradiente relevante de flujo y el acoplamiento geométrico, las ecuaciones \eqref{eq:velocidad} y \eqref{eq:faraday_movimiento} predicen
-\begin{equation}
- \boxed{U_{\mathrm{pk}}\propto\sqrt{\sin\theta}.}
- \label{eq:hipotesis}
-\end{equation}
-Esta proporcionalidad es una \emph{predicción ideal}. En la disposición propuesta, el campo central es aproximadamente transversal al riel y la espira se orienta para que su normal sea casi paralela a $\vec B$. Se supone que, al variar $\theta$, la espira recorre regiones comparables del campo; los posibles cambios de trayectoria se considerarán como fuente de error experimental.
+donde $U_+=V_+$ y $U_-=|V_-|$. Las pendientes pueden diferir, ya que la entrada y la salida corresponden a zonas distintas del campo y a diferentes rapideces.
 
-\section{Montaje y medición propuestos}
+\section{Montaje experimental}
+Las bobinas de Helmholtz se colocaron a los lados del riel. La espira iba vertical sobre el carrito, con su normal aproximadamente en la dirección del campo. Se registraron $I_H=\qty{3.42}{\ampere}$ y un campo central de \qtyrange[range-phrase={ a },range-units=single]{1000}{1050}{\micro\tesla}.
 
-Se instalarán las bobinas de Helmholtz fijas y alimentadas con corriente continua, una a cada lado del riel. Sus planos serán verticales y su eje común horizontal, transversal al desplazamiento del carrito, que pasará por la región central sin atravesar los aros. La espira captadora se fijará verticalmente sobre el carrito, en el plano longitudinal del riel, de forma que su normal se oriente aproximadamente con el campo central. Su forma, tamaño y número de vueltas dependerán del material disponible.
+El cableado fotografiado es compatible con un filtro pasa-bajos con salida sobre el capacitor. Se usaron $R=\qty{1}{\kilo\ohm}$ y $C=\qty{1}{\micro\farad}$. Para ese RC ideal, $RC=\qty{1}{\milli\second}$ y $f_c\approx\qty{159}{\hertz}$.
+
+\begin{minipage}{\linewidth}
+  \centering
+  \includegraphics[width=0.80\linewidth]{figuras/montaje_real.jpg}
+  \captionof{figure}{Carrito con espira, bobinas de Helmholtz, circuito RC y osciloscopio. Fotografía del grupo.}
+  \label{fig:montaje}
+\end{minipage}
+
+\end{multicols}
+
+\clearpage
+
+\begin{multicols}{2}
+\raggedcolumns
+\section{Procedimiento y análisis}
+Se ajustó la inclinación elevando un extremo del riel. En cada pasada se soltó el carrito desde el reposo a \qty{60}{\centi\metre} del centro, medidos sobre el riel. El RIGOL DHO804 registró la señal en CH1. La columna \texttt{MATH1V} contiene la traza del filtro digital pasa-bajos de CH1. Una fotografía del menú muestra un corte de \qty{5}{\kilo\hertz} para ese filtro.
+
+De los 32 registros se seleccionaron dos pasadas por ángulo (22 en total). Entre \ang{5} y \ang{9} se usaron \texttt{Rep1.1} y \texttt{Rep2.1}, tomadas después de recentrar el riel para acercar la trayectoria al centro de las bobinas. Para los demás ángulos se usaron \texttt{Rep1} y \texttt{Rep2}.
+
+\subsection{Extracción de los picos}
+Se convirtió \texttt{MATH1V} a milivoltios y se aplicó una mediana móvil de 21 muestras (aproximadamente \qty{21}{\milli\second}) para reducir picos aislados. Se ubicó el máximo de la traza suavizada y se buscó el mínimo entre \qty{0.15}{\second} y \qty{0.52}{\second} antes del máximo. Se restó a ambos valores la mediana de los tramos de \texttt{MATH1V} más alejados de los pulsos, antes del mínimo y después del máximo, con un margen temporal de \qty{0.14}{\second}.
+
+\begin{minipage}{\linewidth}
+  \centering
+  \includegraphics[width=\linewidth]{figuras/traza_10_grados.pdf}
+  \captionof{figure}{Primera pasada a \ang{10}. Los puntos indican los extremos usados. La escala vertical se acota para mostrar los pulsos.}
+  \label{fig:traza}
+\end{minipage}
+
+\columnbreak
+
+\section{Resultados}
+Los dos archivos de texto contienen el ángulo en grados y el voltaje en milivoltios, con una fila por pasada. Para cada ángulo se calculó el promedio del pico positivo y el promedio del pico negativo. La Figura~\ref{fig:ajustes} muestra también las dos pasadas individuales, de modo que se pueda apreciar su dispersión. La incertidumbre instrumental de la tensión quedó pendiente de determinar.
+
+\begin{minipage}{\linewidth}
+  \centering
+  \captionof{table}{Picos medios. El asterisco indica las pasadas con el riel recentrado.}
+  \label{tab:picos}
+  \footnotesize
+  \begin{tabular}{@{}lrr@{}}
+    \toprule
+    $\theta$ (°) & $\overline V_+$ (mV) & $\overline V_-$ (mV) \\
+    \midrule
+    5$^{\ast}$ & 4,22 & $-2,97$ \\
+    6$^{\ast}$ & 4,53 & $-3,20$ \\
+    7$^{\ast}$ & 4,71 & $-3,47$ \\
+    8$^{\ast}$ & 5,18 & $-3,58$ \\
+    9$^{\ast}$ & 5,28 & $-3,87$ \\
+    10 & 5,08 & $-3,76$ \\
+    11 & 5,32 & $-3,97$ \\
+    12,5 & 5,56 & $-3,99$ \\
+    13 & 6,16 & $-4,47$ \\
+    14 & 6,34 & $-4,85$ \\
+    15 & 6,17 & $-4,45$ \\
+    \bottomrule
+  \end{tabular}
+\end{minipage}
+
+\subsection{Modelos comparados}
+Con \texttt{curve\_fit} se ajustaron por separado $U_+$ y $U_-$ a los modelos
+$A\sqrt{\sin\theta}$, $A\sqrt{\sin\theta}+b$ y $m\theta+c$. Cada ajuste usó los mismos once promedios, con igual peso para cada ángulo.
+\end{multicols}
 
 \begin{center}
-\begin{tikzpicture}[scale=0.78,>=Latex, every node/.style={font=\scriptsize}]
-  % Vista superior: los planos de las bobinas son verticales.
-  \fill[udecazul!7,rounded corners=4pt] (-1.25,-0.40) rectangle (1.25,0.65);
-  \draw[gray!75,line width=2.0pt] (-0.43,-1.55)--(-0.43,1.55);
-  \draw[gray!75,line width=2.0pt] (0.43,-1.55)--(0.43,1.55);
-  \draw[udecoro,line width=3.0pt] (-1.84,-1.15)--(-1.84,1.15);
-  \draw[udecoro,line width=3.0pt] (1.84,-1.15)--(1.84,1.15);
-  \node[above] at (-1.84,1.17) {H$_1$};
-  \node[above] at (1.84,1.17) {H$_2$};
-  \draw[->,line width=1.4pt,purple!75!black] (-1.43,0.30)--(1.43,0.30);
-  \node[above,purple!75!black] at (0.86,0.30) {$\vec B$};
-  \draw[fill=gray!20,draw=gray!75,rounded corners=2pt] (-0.31,-1.12) rectangle (0.31,-0.62);
-  \draw[line width=2.2pt,udecoro!80!black] (0,-1.08)--(0,-0.65);
-  \draw[->,line width=1.1pt] (0,-0.59)--(0,-0.18);
-  \node[anchor=west] at (0.48,-0.93) {Espira};
-  \node[anchor=west] at (0.48,-1.19) {Carrito};
-  \node[anchor=east] at (-0.54,-1.41) {Riel};
-\end{tikzpicture}
-\captionof{figure}{Vista superior del montaje propuesto (no a escala).}
-\label{fig:montaje}
+  \begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figuras/ajustes.pdf}
+    \captionof{figure}{Ajustes de ambos lóbulos. Los círculos grises son las pasadas individuales y los puntos negros, sus promedios.}
+    \label{fig:ajustes}
+  \end{minipage}
 \end{center}
 
-Para variar $\theta$, se elevará un extremo del riel mediante un soporte, manteniendo apoyado el otro. En cada ensayo se conservará la distancia $d$ de liberación respecto de una referencia cercana al centro magnético; el carrito se soltará sin impulso inicial. Se procurará que la espira cruce regiones comparables del campo. Los cambios de altura al inclinar el riel se considerarán como posible fuente de error.
+\clearpage
+
+\section{Residuos y discusión}
+Se calculó para cada ángulo el residuo $r_i=U_i-U_{\mathrm{ajuste},i}$. La raíz del error cuadrático medio, $\mathrm{RMSE}=\sqrt{\sum_i r_i^2/n}$, resume la magnitud de los residuos en milivoltios.
 
 \begin{center}
-\begin{circuitikz}[american,scale=0.83,transform shape]
-  \draw (0,0) to[V,l_=$\mathcal E(t)$] (0,2.1)
-   to[R,l=$r_e$] (1.85,2.1)
-   to[R,l=$R_L$] (4.05,2.1)
-   -- (4.05,0) -- (0,0);
-  \draw (1.85,2.1) -- (1.85,3.0) -- (2.67,3.0);
-  \node[draw,circle,minimum size=0.62cm,inner sep=0pt] (scope) at (3.0,3.0) {$V$};
-  \draw (scope.east) -- (4.05,3.0) -- (4.05,2.1);
-  \node[font=\scriptsize,anchor=south] at (3.0,3.37) {Osciloscopio};
-\end{circuitikz}
-\captionof{figure}{Circuito equivalente propuesto: la fem de la espira móvil se registra como voltaje en $R_L$.}
-\label{fig:circuito}
+  \begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figuras/residuos.pdf}
+    \captionof{figure}{Residuos de los ajustes a los promedios. Círculos para el modelo proporcional, cuadrados para el modelo con término constante y triángulos para la recta en el ángulo.}
+    \label{fig:residuos}
+  \end{minipage}
 \end{center}
 
-El osciloscopio se conectará en paralelo con $R_L$. Para cada ángulo se registrarán la línea base, los máximos de ambas polaridades y la duración de los pulsos, con varias repeticiones y alimentación de Helmholtz constante. Si se emplea el Hameg HM203-7, será conveniente filmar la traza, ya que no almacena los pulsos. Los cables no deberán frenar el carrito ni generar señales parásitas apreciables.
+\begin{multicols}{2}
+\raggedcolumns
+\begin{minipage}{\linewidth}
+  \centering
+  \captionof{table}{RMSE de los ajustes a las magnitudes de los picos.}
+  \label{tab:ajustes}
+  \footnotesize
+  \begin{tabular}{@{}lrr@{}}
+    \toprule
+    Modelo & $U_+$ (mV) & $U_-$ (mV) \\
+    \midrule
+    Proporcional & 0,307 & 0,209 \\
+    Con término constante & 0,193 & 0,170 \\
+    Lineal en el ángulo & 0,190 & 0,171 \\
+    \bottomrule
+  \end{tabular}
+\end{minipage}
 
-\textbf{Contraste experimental.} Se graficará $U_{\mathrm{pk}}$ frente a $\sqrt{\sin\theta}$, considerando la dispersión e incertidumbres. Si se dispone de una medida independiente de rapidez, también se contrastará $U_{\mathrm{pk}}$ con $v$.
+Para el modelo proporcional se obtuvo $A_+=\qty{12.83}{\milli\volt}$ y $A_-=\qty{9.35}{\milli\volt}$. Entre \ang{5} y \ang{9} los residuos son positivos en ambos lóbulos, y entre \ang{10} y \ang{12.5} son negativos. Los dos modelos con término constante reducen el RMSE y dan valores similares en el intervalo medido.
 
-\textbf{Condición previa.} Se comprobará que la normal de la espira esté aproximadamente orientada en la dirección del campo central y que la señal inducida resulte detectable. Si el campo es paralelo al plano de la espira, el flujo y la señal pueden ser muy pequeños.
+El cambio de signo de los residuos coincide con el paso del tramo recentrado a los ángulos restantes. Puesto que las series cubren distintos tramos del intervalo del ajuste, tanto la inclinación como el centrado pueden influir en ese patrón.
+
+\columnbreak
+
+\subsection*{Limitaciones experimentales}
+Al elevar el riel pudo cambiar el punto por el que la espira cruzó el campo. Esto modifica el gradiente de flujo efectivo y puede desplazar los picos. También pudieron influir el rozamiento, la tensión de los cables y la respuesta de los filtros. La rapidez del carrito se estimó mediante el modelo cinemático ideal.
+
+Al repetir el análisis con ventanas de 11 y 31 muestras, las pendientes proporcionales variaron entre \qty{12.03}{\milli\volt} y \qty{13.35}{\milli\volt} para $U_+$ y entre \qty{9.07}{\milli\volt} y \qty{9.77}{\milli\volt} para $U_-$. El suavizado influye en las amplitudes medidas, aunque se conserva la tendencia general con el ángulo.
+
+\section{Conclusiones}
+Se observaron dos pulsos de signos opuestos y un aumento general de ambas magnitudes al elevar el riel. La dependencia $\sqrt{\sin\theta}$ ofrece una descripción física de esa tendencia. El patrón de los residuos muestra que la proporcionalidad ideal deja diferencias entre tramos. Medir la rapidez de forma independiente y verificar el centrado para cada ángulo ayudaría a distinguir el efecto de la rapidez del cambio de trayectoria.
 
 \begin{thebibliography}{9}
-\bibitem{chi2017} R. Chi Durán, \emph{Problemas propuestos y resueltos de electromagnetismo}, versión marzo de 2017, cap.~15 (ley de Faraday--Lenz).
-\bibitem{serway2009} R. A. Serway y J. W. Jewett, Jr., \emph{Física para ciencias e ingeniería con física moderna}, vol.~2, 7.\textsuperscript{a} ed., Cengage Learning, 2009, caps.~30--31.
+\bibitem{serway2009} R. A. Serway y J. W. Jewett, Jr., \emph{Física para ciencias e ingeniería con física moderna}, vol.~2, 7.\textsuperscript{a} ed., Cengage Learning, 2009.
 \end{thebibliography}
-
 \end{multicols}
 \end{document}
