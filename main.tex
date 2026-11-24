@@ -59,7 +59,7 @@ Se registró la tensión de una espira montada en un carrito al pasar entre dos 
 \begin{multicols}{2}
 \raggedcolumns
 \section{Introducción}
-Se estudió cómo cambia la tensión inducida al variar la inclinación de un riel por el que desciende un carrito con una espira. La variable independiente fue el ángulo $\theta$. Las variables dependientes fueron el máximo positivo $V_+$ y el mínimo negativo $V_-$ de la tensión respecto de la línea base del osciloscopio.
+Se estudió cómo cambia la tensión inducida en la espira móvil al variar el ángulo $\theta$ del riel. Se midieron el máximo positivo $V_+$ y el mínimo negativo $V_-$ respecto de la línea base del osciloscopio.
 
 \section{Marco teórico}
 \subsection{Movimiento del carrito}
@@ -71,22 +71,22 @@ Para un carrito que parte del reposo, despreciando el rozamiento y el efecto de 
 La distancia hasta el centro de las bobinas fue $d=\qty{0.60}{\metre}$. Con $g=\qty{9.81}{\metre\per\second\squared}$, la rapidez ideal en ese punto abarca de \qty{1.01}{\metre\per\second} a \qty{1.75}{\metre\per\second} para los ángulos observados.
 
 \subsection{Ley de Faraday--Lenz}
-El flujo por vuelta se define como $\Phi_B=\int_S \vec B\cdot d\vec S$. Para $N$ vueltas que enlazan aproximadamente el mismo flujo, la fuerza electromotriz inducida es \cite{serway2009}
+El flujo por vuelta es $\Phi_B=\int_S \vec B\cdot d\vec S$. En cada pasada, la espira conserva su área y orientación. Como el campo es estacionario, el flujo depende de la posición $s(t)$. Para $N$ vueltas que enlazan el mismo flujo, Faraday--Lenz y la regla de la cadena dan \cite{serway2009}
 \begin{equation}
-  \mathcal E=-N\frac{d\Phi_B}{dt}=-N\frac{d\Phi_B}{ds}\,v.
+  \mathcal E=-N\frac{d\Phi_B}{dt}=-N\frac{d\Phi_B}{ds}\frac{ds}{dt}.
   \label{eq:faraday}
 \end{equation}
-El campo fue aproximadamente uniforme cerca del centro. Los pulsos de signo opuesto se esperan al entrar y salir de la región de campo, donde el flujo aumenta y disminuye, respectivamente. En el centro, el cambio de flujo puede ser pequeño aun con el carrito en movimiento.
+El factor $ds/dt=v$ es la rapidez del carrito. Al entrar y salir de la región de campo, el flujo aumenta y disminuye, lo que produce pulsos de signo opuesto. El flujo cambia poco cerca del centro, donde el campo es aproximadamente uniforme.
 
 \columnbreak
 
 \subsection{Predicción para los picos}
 Si el perfil de flujo a lo largo del riel es comparable entre pasadas, las ecuaciones \eqref{eq:velocidad} y \eqref{eq:faraday} dan una dependencia $\mathcal E(s,\theta)\propto\sqrt{\sin\theta}$ a cada posición $s$. Si el circuito y el filtrado afectan de forma semejante a todas las pasadas, se espera
 \begin{equation}
-  U_\pm(\theta)=A_\pm\sqrt{\sin\theta},
+  \lvert V_\pm(\theta)\rvert=A_\pm\sqrt{\sin\theta}.
   \label{eq:modelo}
 \end{equation}
-donde $U_+=V_+$ y $U_-=|V_-|$. Las pendientes pueden diferir, ya que la entrada y la salida corresponden a zonas distintas del campo y a diferentes rapideces.
+Los coeficientes $A_+$ y $A_-$ pueden diferir porque los picos corresponden a zonas distintas del campo y a diferentes rapideces del carrito.
 
 \section{Montaje experimental}
 Las bobinas de Helmholtz se colocaron a los lados del riel. La espira iba vertical sobre el carrito, con su normal aproximadamente en la dirección del campo. Se registraron $I_H=\qty{3.42}{\ampere}$ y un campo central de \qtyrange[range-phrase={ a },range-units=single]{1000}{1050}{\micro\tesla}.
@@ -112,7 +112,7 @@ Se ajustó la inclinación elevando un extremo del riel. En cada pasada se solt�
 De los 32 registros se seleccionaron dos pasadas por ángulo (22 en total). Entre \ang{5} y \ang{9} se usaron \texttt{Rep1.1} y \texttt{Rep2.1}, tomadas después de recentrar el riel para acercar la trayectoria al centro de las bobinas. Para los demás ángulos se usaron \texttt{Rep1} y \texttt{Rep2}.
 
 \subsection{Extracción de los picos}
-Se convirtió \texttt{MATH1V} a milivoltios y se aplicó una mediana móvil de 21 muestras (aproximadamente \qty{21}{\milli\second}) para reducir picos aislados. Se ubicó el máximo de la traza suavizada y se buscó el mínimo entre \qty{0.15}{\second} y \qty{0.52}{\second} antes del máximo. Se restó a ambos valores la mediana de los tramos de \texttt{MATH1V} más alejados de los pulsos, antes del mínimo y después del máximo, con un margen temporal de \qty{0.14}{\second}.
+Se convirtió \texttt{MATH1V} a milivoltios y se aplicó una mediana móvil de 21 muestras para reducir picos aislados. Se ubicó el máximo de la traza suavizada y se buscó el mínimo en una ventana anterior. Se tomó como línea base la mediana de la señal en los tramos alejados de los pulsos y se restó de ambos extremos. Los detalles de las ventanas se registraron en \texttt{analisis/LEEME.txt}.
 
 \begin{minipage}{\linewidth}
   \centering
@@ -151,7 +151,7 @@ Los dos archivos de texto contienen el ángulo en grados y el voltaje en milivol
 \end{minipage}
 
 \subsection{Modelos comparados}
-Con \texttt{curve\_fit} se ajustaron por separado $U_+$ y $U_-$ a los modelos
+Con \texttt{curve\_fit} se ajustaron por separado $\overline V_+$ y $\lvert\overline V_-\rvert$ a los modelos
 $A\sqrt{\sin\theta}$, $A\sqrt{\sin\theta}+b$ y $m\theta+c$. Cada ajuste usó los mismos once promedios, con igual peso para cada ángulo.
 \end{multicols}
 
@@ -167,13 +167,13 @@ $A\sqrt{\sin\theta}$, $A\sqrt{\sin\theta}+b$ y $m\theta+c$. Cada ajuste usó los
 \clearpage
 
 \section{Residuos y discusión}
-Se calculó para cada ángulo el residuo $r_i=U_i-U_{\mathrm{ajuste},i}$. La raíz del error cuadrático medio, $\mathrm{RMSE}=\sqrt{\sum_i r_i^2/n}$, resume la magnitud de los residuos en milivoltios.
+Para cada pico se calculó el residuo $r_i=\lvert\overline V_{\pm,i}\rvert-f_\pm(\theta_i)$, donde $f_\pm(\theta_i)$ es la magnitud predicha por el modelo. La raíz del error cuadrático medio, $\mathrm{RMSE}=\sqrt{\sum_i r_i^2/n}$, resume la magnitud de los residuos en milivoltios.
 
 \begin{center}
   \begin{minipage}{\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figuras/residuos.pdf}
-    \captionof{figure}{Residuos de los ajustes a los promedios. Círculos para el modelo proporcional, cuadrados para el modelo con término constante y triángulos para la recta en el ángulo.}
+    \captionof{figure}{Residuos de los ajustes a los promedios. Círculos para $A\sqrt{\sin\theta}$, cuadrados para $A\sqrt{\sin\theta}+b$ y triángulos para $m\theta+c$.}
     \label{fig:residuos}
   \end{minipage}
 \end{center}
@@ -187,7 +187,7 @@ Se calculó para cada ángulo el residuo $r_i=U_i-U_{\mathrm{ajuste},i}$. La ra�
   \footnotesize
   \begin{tabular}{@{}lrr@{}}
     \toprule
-    Modelo & $U_+$ (mV) & $U_-$ (mV) \\
+    Modelo & $V_+$ (mV) & $\lvert V_-\rvert$ (mV) \\
     \midrule
     Proporcional & 0,307 & 0,209 \\
     Con término constante & 0,193 & 0,170 \\
@@ -205,7 +205,7 @@ El cambio de signo de los residuos coincide con el paso del tramo recentrado a l
 \subsection*{Limitaciones experimentales}
 Al elevar el riel pudo cambiar el punto por el que la espira cruzó el campo. Esto modifica el gradiente de flujo efectivo y puede desplazar los picos. También pudieron influir el rozamiento, la tensión de los cables y la respuesta de los filtros. La rapidez del carrito se estimó mediante el modelo cinemático ideal.
 
-Al repetir el análisis con ventanas de 11 y 31 muestras, las pendientes proporcionales variaron entre \qty{12.03}{\milli\volt} y \qty{13.35}{\milli\volt} para $U_+$ y entre \qty{9.07}{\milli\volt} y \qty{9.77}{\milli\volt} para $U_-$. El suavizado influye en las amplitudes medidas, aunque se conserva la tendencia general con el ángulo.
+Al repetir el análisis con medianas móviles de 11 y 31 muestras, el coeficiente proporcional varió entre \qty{12.03}{\milli\volt} y \qty{13.35}{\milli\volt} para $V_+$ y entre \qty{9.07}{\milli\volt} y \qty{9.77}{\milli\volt} para $\lvert V_-\rvert$. La tendencia general con el ángulo se mantuvo al variar el suavizado.
 
 \section{Conclusiones}
 Se observaron dos pulsos de signos opuestos y un aumento general de ambas magnitudes al elevar el riel. La dependencia $\sqrt{\sin\theta}$ ofrece una descripción física de esa tendencia. El patrón de los residuos muestra que la proporcionalidad ideal deja diferencias entre tramos. Medir la rapidez de forma independiente y verificar el centrado para cada ángulo ayudaría a distinguir el efecto de la rapidez del cambio de trayectoria.

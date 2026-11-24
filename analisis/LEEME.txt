@@ -5,7 +5,27 @@ Los archivos picos_positivos.txt y picos_negativos.txt tienen dos columnas:
 Para 5° a 9° se usaron Rep1.1 y Rep2.1, tomadas después de recentrar el riel.
 De 10° a 15° se usaron Rep1 y Rep2. Los picos negativos conservan su signo.
 
-Desde la raíz del proyecto, con NumPy, SciPy y Matplotlib instalados:
+Extracción de los picos
+
+Si necesitas regenerar los dos TXT a partir de los CSV del osciloscopio,
+ejecuta este comando desde la raíz con NumPy y SciPy instalados.
+
+    python analisis/extraer_picos.py
+
+El script busca las pasadas dentro de datos/ y sus subcarpetas. Usa el ángulo
+del nombre del CSV. Por ejemplo, grado 12 contiene las pasadas de 12,5°.
+Si solo tienes datos.zip, extráelo en la raíz para recuperar la carpeta datos/.
+
+Se convirtió la traza MATH1V a mV y se aplicó una mediana móvil de 21 muestras
+(aproximadamente 21 ms). Una vez localizado el máximo, se buscó el mínimo entre
+0,52 s y 0,15 s antes de ese máximo. La línea base fue la mediana de MATH1V
+antes del mínimo menos 0,14 s y después del máximo más 0,14 s, combinando las
+muestras de ambos tramos. Se restó esa línea base a los dos picos suavizados.
+
+Ajuste de los picos
+
+Para actualizar los gráficos, ejecuta este comando desde la raíz con NumPy,
+SciPy y Matplotlib instalados.
 
     python analisis/analisis_induccion.py
 

@@ -43,12 +43,15 @@ for i, (archivo, titulo) in enumerate([
     ar.axhline(0, color="0.55", linewidth=0.7)
 
     modelos = [
-        ("Proporcional", proporcional, x, x_curva, "-", "o", "#164673"),
-        ("Con término constante", recta, x, x_curva, "--", "s", "#9b3c24"),
-        ("Lineal en el ángulo", recta, theta, theta_curva, ":", "^", "#34694e"),
+        ("Proporcional", r"$A\sqrt{\sin\theta}$",
+         proporcional, x, x_curva, "-", "o", "#164673"),
+        ("Con término constante", r"$A\sqrt{\sin\theta}+b$",
+         recta, x, x_curva, "--", "s", "#9b3c24"),
+        ("Lineal en el ángulo", r"$m\theta+c$",
+         recta, theta, theta_curva, ":", "^", "#34694e"),
     ]
     print(f"\n{archivo}")
-    for nombre, modelo, predictor, curva, linea, marcador, color in modelos:
+    for nombre, formula, modelo, predictor, curva, linea, marcador, color in modelos:
         parametros, _ = curve_fit(modelo, predictor, promedio)
         residuos = promedio - modelo(predictor, *parametros)
         rmse = np.sqrt(np.mean(residuos**2))
@@ -56,7 +59,7 @@ for i, (archivo, titulo) in enumerate([
         print(f"{nombre:23s} | parámetros: {valores:18s} | RMSE: {rmse:.4f} mV")
 
         ax.plot(theta_curva, modelo(curva, *parametros), linea, color=color,
-                linewidth=1.4, label=nombre)
+                linewidth=1.4, label=formula)
         ar.plot(theta, residuos, linestyle="none", marker=marcador, color=color,
                 markerfacecolor="none", markersize=3.5)
 
