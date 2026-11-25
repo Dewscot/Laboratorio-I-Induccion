@@ -1,5 +1,5 @@
 # Archivos de compilacion LaTeX; incluye PDF generados provisionalmente
-.latex-build/
+latex-build/
 
 # Auxiliares antiguos que pudieran estar fuera de la carpeta de compilacion
 *.aux
